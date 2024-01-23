@@ -8,13 +8,13 @@
             <tr>
                 <td valign="top">
                         <ul>
-                                <li><a href="#">
+                                <li><a href="../../../Account/Profile/screen.html">
                                       Account</a></li>
                                 <li>
                                    <a href="#">Dashboard</a>
                                 </li>
                                 <li>
-                                   <a href="./Courses/Home/screen.html">Courses</a>
+                                   <a href="../../Home/screen.html">Courses</a>
                                 </li>
                                 <li>
                                    <a href="#">Calendar</a>
@@ -29,14 +29,14 @@
                 <td valign="top">
                         <ul>
                                 <li>
-                                  <a href=".../Home/screen.html"> Home</a>
+                                  <a href="../../Home/screen.html"> Home</a>
                                 </li>
                                 <li><a href="#"> Modules</a></li>
                                 <li><a href="#"> Piazza</a></li>
                                 <li><a href="#"> Zoom Meetings</a></li>
-                                <li><a href="../screen.html"> Assignments</a></li>
+                                <li><a href="../../Assignments/screen.html"> Assignments</a></li>
                                 <li><a href="#"> Quizzes</a></li>
-                                <li><a href=".../Grades/screen.html"> Grades</a></li>
+                                <li><a href="../../Grades/screen.html"> Grades</a></li>
                                 <li><a href="#"> People</a></li>
                                 <li><a href="#"> Panopto Video</a></li>
                                 <li><a href="#"> Discussions</a></li>
@@ -56,19 +56,18 @@
                     </select>
                     <hr>
                     <h3>Assignment Name</h3>
+                    
+                    <form id = 'text-fields'>
 
-                    <input type="text" id="text-fields-assignment-name" title="A1" value="A1 - ENV + HTML" /><br />
-
-                    <br />
+                    <input type="text" id="text-fields-assignment-name" title="A1" value="A1 - ENV + HTML" />
+                    </form> <br /> <br />
 
                     <form id="textarea">
                         <textarea cols="20" rows="2">This is the assignment description.</textarea>
                     </form>
 
                     <label for="text-fields-points">Points</label> <br />
-                    <input type="text" id="text-fields-points" title="Points" value="100" /><br />
-
-                    <br />
+                    <input type="text" id="text-fields-points" title="Points" value="100" /><br /><br />
 
                     <label for="selectors-assignments">Assignment Group</label> <br />
                     <select id="selectors-assignments">
@@ -91,7 +90,7 @@
 
                     <br /> <br />
 
-                    <label>Online Entry Options<label>
+                    <label>Online Entry Options</label>
                             <br />
 
                             <input type="checkbox" value="TEXT" name="check-entry" id="chkbox-text" unchecked />
@@ -110,6 +109,7 @@
                             <label for="chkbox-file">File Uploads</label> <br />
 
                             <br />
+                            <form id = 'text-fields'>
 
                             <label>Assign<label> <br />
                                     <label for="text-fields-assign">Assign to</label> <br />
@@ -119,13 +119,13 @@
 
                                     <label for="text-fields-duedate">Due</label> <br />
                                     <input type="date" id="text-fields-duedate" value="2021-01-01" /><br />
-                                    </form>
+                                    <!-- </form> -->
 
                                     <br />
 
                                     <label for="text-fields-availabledue">Available from</label> <br />
                                     <input type="date" id="text-fields-availabledue" value="2021-01-01" /><br />
-                                    </form>
+                                    <!-- </form> -->
 
                                     <br />
 
