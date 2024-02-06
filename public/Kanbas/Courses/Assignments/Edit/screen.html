@@ -6,234 +6,237 @@
       rel="stylesheet"
       href="../../../../libs/font-awesome/css/font-awesome.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="../../../../libs/bootstrap/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="../../../Courses/Navigation/index.css" />
   </head>
 
   <body>
-    <table width="100%">
-      <tbody>
-        <tr>
-          <td valign="top">
-            <ul class="wd-kanbas-navigation">
-              <li>
-                <a href="http://northeastern.edu">
-                  <img
-                    src="../../../../images/n-logo.png"
-                    alt="nLogo"
-                    width="50"
-                    height="50"
-                  />
-                </a>
-              </li>
-              <li>
-                <a href="../../../Account/Profile/screen.html"
-                  ><i class="fa fa-user-circle-o"></i>Account</a
-                >
-              </li>
-              <li>
-                <a href="../../../Dashboard/screen.html">
-                  <i class="fa fa-tachometer"></i> Dashboard</a
-                >
-              </li>
-              <li class="wd-active">
-                <a href="../../../Courses/Home/screen.html"
-                  ><i class="fa fa-book"></i>Courses</a
-                >
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-calendar"></i> Calendar</a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-envelope-open-o"></i> Inbox</a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-clock-o"></i> History</a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-tv"></i> Studio</a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-share-square-o"></i> Commons</a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-question-circle-o"></i>Help</a>
-              </li>
-            </ul>
-          </td>
-          <td valign="top">
-            <ul>
-              <li><a href="../../Home/screen.html"> Home</a></li>
-              <li><a href="#"> Modules</a></li>
-              <li><a href="#"> Piazza</a></li>
-              <li><a href="#"> Zoom Meetings</a></li>
-              <li><a href="../../Assignments/screen.html"> Assignments</a></li>
-              <li><a href="#"> Quizzes</a></li>
-              <li><a href="../../Grades/screen.html"> Grades</a></li>
-              <li><a href="#"> People</a></li>
-              <li><a href="#"> Panopto Video</a></li>
-              <li><a href="#"> Discussions</a></li>
-              <li><a href="#"> Announcements</a></li>
-              <li><a href="#"> Pages</a></li>
-              <li><a href="#"> Files</a></li>
-              <li><a href="#"> Rubrics</a></li>
-              <li><a href="#"> Outcomes</a></li>
-              <li><a href="#"> Collaborations</a></li>
-              <li><a href="#"> Syllabus</a></li>
-              <li><a href="#"> Settings</a></li>
-            </ul>
-          </td>
-          <td valign="top">
-            <select>
-              <option>SpeedGrader</option>
-            </select>
-            <hr />
-            <h3>Assignment Name</h3>
-
-            <input
-              type="text"
-              id="text-fields-assignment-name"
-              title="A1"
-              value="A1 - ENV + HTML"
-            /><br />
-
-            <br />
-
-            <form id="textarea">
-              <textarea cols="30" rows="2">
-This is the assignment description.</textarea
-              >
-            </form>
-
-            <label for="text-fields-points">Points</label> <br />
-            <input
-              type="text"
-              id="text-fields-points"
-              title="Points"
-              value="100"
-            /><br />
-
-            <br />
-
-            <label for="selectors-assignments">Assignment Group</label> <br />
-            <select id="selectors-assignments">
-              <option>ASSIGNMENTS</option>
-            </select>
-
-            <br />
-            <br />
-
-            <label for="selectors-display-grade">Display Grade as</label> <br />
-            <select id="selectors-display-grade">
-              <option>Percentage</option>
-            </select>
-
-            <br />
-            <br />
-
-            <label for="submission-type">Submission Type</label> <br />
-            <select id="submission-type">
-              <option>Online</option>
-            </select>
-
-            <br />
-            <br />
-
-            <label>Online Entry Options</label>
-            <br />
-
-            <input
-              type="checkbox"
-              value="TEXT"
-              name="check-entry"
-              id="chkbox-text"
-              unchecked
-            />
-            <label for="chkbox-text">Text Entry</label> <br />
-
-            <input
-              type="checkbox"
-              value="WEBSITE"
-              name="check-entry"
-              id="chkbox-website"
-              unchecked
-            />
-            <label for="chkbox-website">Website URL</label> <br />
-
-            <input
-              type="checkbox"
-              value="MEDIA"
-              name="check-entry"
-              id="chkbox-media"
-              unchecked
-            />
-            <label for="chkbox-media">Media Recordings</label> <br />
-
-            <input
-              type="checkbox"
-              value="STUDENT"
-              name="check-entry"
-              id="chkbox-student"
-              unchecked
-            />
-            <label for="chkbox-student">Student Annotation</label> <br />
-
-            <input
-              type="checkbox"
-              value="FILE"
-              name="check-entry"
-              id="chkbox-file"
-              unchecked
-            />
-            <label for="chkbox-file">File Uploads</label> <br />
-
-            <br />
-
-            <label>Assign</label> <br />
-            <label for="text-fields-assign">Assign to</label> <br />
-            <input
-              type="text"
-              id="text-fields-assign"
-              title="Assign"
-              value="Everyone"
-            /><br />
-
-            <br />
-
-            <label for="text-fields-duedate">Due</label> <br />
-            <input
-              type="date"
-              id="text-fields-duedate"
-              value="2021-01-01"
-            /><br />
-
-            <br />
-
-            <label for="text-fields-availabledue">Available from</label> <br />
-            <input
-              type="date"
-              id="text-fields-availabledue"
-              value="2021-01-01"
-            /><br />
-
-            <br />
-
-            <label for="text-fields-untildate">Until</label> <br />
-            <input
-              type="date"
-              id="text-fields-untildate"
-              value="2021-01-01"
-            /><br />
-
-            <br />
-
-            <a href="../screen.html">
-              <button>Cancel</button>
+    <div class="d-flex">
+      <div>
+        <ul class="wd-kanbas-navigation">
+          <li>
+            <a href="http://northeastern.edu">
+              <img
+                src="../../../../images/n-logo.png"
+                alt="nLogo"
+                width="50"
+                height="50"
+              />
             </a>
-            <a href="../screen.html">
-              <button>Save</button>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </li>
+          <li>
+            <a href="../../../Account/Profile/screen.html"
+              ><i class="fa fa-user-circle-o"></i>Account</a
+            >
+          </li>
+          <li>
+            <a href="../../../Dashboard/screen.html">
+              <i class="fa fa-tachometer"></i> Dashboard</a
+            >
+          </li>
+          <li class="wd-active">
+            <a href="../../../Courses/Home/screen.html"
+              ><i class="fa fa-book"></i>Courses</a
+            >
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-calendar"></i> Calendar</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-envelope-open-o"></i> Inbox</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-clock-o"></i> History</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-tv"></i> Studio</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-share-square-o"></i> Commons</a>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-question-circle-o"></i>Help</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <ul class="wd-navigation">
+          <li>
+            <a href="../Home/screen.html"> Home</a>
+          </li>
+          <li>
+            <a href="../../Home/screen.html"> Modules</a>
+          </li>
+          <li><a href="#"> Piazza</a></li>
+          <li><a href="#"> Zoom Meetings</a></li>
+          <li class="wd-active">
+            <a href="../Assignments/screen.html"> Assignments</a>
+          </li>
+          <li><a href="#"> Quizzes</a></li>
+          <li><a href="../Grades/screen.html"> Grades</a></li>
+          <li><a href="#"> People</a></li>
+          <li><a href="#"> Panopto Video</a></li>
+          <li><a href="#"> Discussions</a></li>
+          <li><a href="#"> Announcements</a></li>
+          <li><a href="#"> Pages</a></li>
+          <li><a href="#"> Files</a></li>
+          <li><a href="#"> Rubrics</a></li>
+          <li><a href="#"> Outcomes</a></li>
+          <li><a href="#"> Collaborations</a></li>
+          <li><a href="#"> Syllabus</a></li>
+          <li><a href="#"> Settings</a></li>
+        </ul>
+      </div>
+      <div>
+        <select>
+          <option>SpeedGrader</option>
+        </select>
+        <hr />
+        <h3>Assignment Name</h3>
+
+        <input
+          type="text"
+          id="text-fields-assignment-name"
+          title="A1"
+          value="A1 - ENV + HTML"
+        /><br />
+
+        <br />
+
+        <form id="textarea">
+          <textarea cols="30" rows="2">
+ This is the assignment description.</textarea
+          >
+        </form>
+
+        <label for="text-fields-points">Points</label> <br />
+        <input
+          type="text"
+          id="text-fields-points"
+          title="Points"
+          value="100"
+        /><br />
+
+        <br />
+
+        <label for="selectors-assignments">Assignment Group</label> <br />
+        <select id="selectors-assignments">
+          <option>ASSIGNMENTS</option>
+        </select>
+
+        <br />
+        <br />
+
+        <label for="selectors-display-grade">Display Grade as</label> <br />
+        <select id="selectors-display-grade">
+          <option>Percentage</option>
+        </select>
+
+        <br />
+        <br />
+
+        <label for="submission-type">Submission Type</label> <br />
+        <select id="submission-type">
+          <option>Online</option>
+        </select>
+
+        <br />
+        <br />
+
+        <label>Online Entry Options</label>
+        <br />
+
+        <input
+          type="checkbox"
+          value="TEXT"
+          name="check-entry"
+          id="chkbox-text"
+          unchecked
+        />
+        <label for="chkbox-text">Text Entry</label> <br />
+
+        <input
+          type="checkbox"
+          value="WEBSITE"
+          name="check-entry"
+          id="chkbox-website"
+          unchecked
+        />
+        <label for="chkbox-website">Website URL</label> <br />
+
+        <input
+          type="checkbox"
+          value="MEDIA"
+          name="check-entry"
+          id="chkbox-media"
+          unchecked
+        />
+        <label for="chkbox-media">Media Recordings</label> <br />
+
+        <input
+          type="checkbox"
+          value="STUDENT"
+          name="check-entry"
+          id="chkbox-student"
+          unchecked
+        />
+        <label for="chkbox-student">Student Annotation</label> <br />
+
+        <input
+          type="checkbox"
+          value="FILE"
+          name="check-entry"
+          id="chkbox-file"
+          unchecked
+        />
+        <label for="chkbox-file">File Uploads</label> <br />
+
+        <br />
+
+        <label>Assign</label> <br />
+        <label for="text-fields-assign">Assign to</label> <br />
+        <input
+          type="text"
+          id="text-fields-assign"
+          title="Assign"
+          value="Everyone"
+        /><br />
+
+        <br />
+
+        <label for="text-fields-duedate">Due</label> <br />
+        <input type="date" id="text-fields-duedate" value="2021-01-01" /><br />
+
+        <br />
+
+        <label for="text-fields-availabledue">Available from</label> <br />
+        <input
+          type="date"
+          id="text-fields-availabledue"
+          value="2021-01-01"
+        /><br />
+
+        <br />
+
+        <label for="text-fields-untildate">Until</label> <br />
+        <input
+          type="date"
+          id="text-fields-untildate"
+          value="2021-01-01"
+        /><br />
+
+        <br />
+
+        <a href="../screen.html">
+          <button>Cancel</button>
+        </a>
+        <a href="../screen.html">
+          <button>Save</button>
+        </a>
+      </div>
+    </div>
   </body>
 </html>
