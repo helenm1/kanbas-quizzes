@@ -1,0 +1,10 @@
+.modules-text{
+    color: grey;
+}
+.assignmentLinks{
+    text-decoration: none !important;
+    font-weight: bold;
+    color: black !important;
+    outline: none !important;
+    border: none !important;
+}

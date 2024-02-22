@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./index.css";
 import { modules } from "../../Database";
-import { FaEllipsisV, FaCheckCircle, FaPlusCircle } from "react-icons/fa";
+import { FaEllipsisV, FaCheckCircle, FaPlusCircle, FaCaretRight, FaCaretDown, FaPlus } from "react-icons/fa";
 import { useParams } from "react-router";
 function ModuleList() {
   const { courseId } = useParams();
@@ -33,10 +33,12 @@ function ModuleList() {
           >
             <div>
               <FaEllipsisV className="me-2" />
+              <FaCaretRight className="me-2" />
               {module.name}
               <span className="float-end">
                 <FaCheckCircle className="text-success" />
-                <FaPlusCircle className="ms-2" />
+                <FaCaretDown />
+                <FaPlus className="ms-2" />
                 <FaEllipsisV className="ms-2" />
               </span>
             </div>
