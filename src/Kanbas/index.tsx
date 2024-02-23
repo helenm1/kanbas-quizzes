@@ -1,11 +1,11 @@
-import KanbasNavigation from "./Navigation/index";
+import Navigation from "./Navigation";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Courses from "./Courses";
 function Kanbas() {
   return (
     <div className="d-flex">
-      <KanbasNavigation />
+      <Navigation />
       <div style={{ flexGrow: 1 }}>
         <Routes>
           <Route path="/" element={<Navigate to="Dashboard" />} />
