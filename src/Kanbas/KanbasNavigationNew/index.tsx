@@ -13,7 +13,7 @@ import {
 } from "react-icons/fa";
 import nLogo from "../../images/n-logo.png";
 
-function KanbasNavigation() {
+function KanbasNavigationNew() {
   const links = [
     { label: "Account", icon: <FaRegUserCircle className="fs-2" /> },
     { label: "Dashboard", icon: <FaTachometerAlt className="fs-2" /> },
@@ -45,4 +45,4 @@ function KanbasNavigation() {
     </div>
   );
 }
-export default KanbasNavigation;
+export default KanbasNavigationNew;
