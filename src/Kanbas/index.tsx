@@ -1,4 +1,4 @@
-import Navigation from "./Navigation";
+import Navigation from "./Navigation/index";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Courses from "./Courses";
