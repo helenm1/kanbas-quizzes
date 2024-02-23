@@ -86,7 +86,7 @@ function Status() {
 
       <h6 className="mt-2">
         <span className="to-do">
-          <a href="" className="status-links">
+          <a href="#" className="status-links">
             <i className="fa fa-calendar me-2"></i>View Calendar
           </a>
         </span>

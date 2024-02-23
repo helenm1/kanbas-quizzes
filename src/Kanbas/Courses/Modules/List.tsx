@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./index.css";
 import { modules } from "../../Database";
-import { FaEllipsisV, FaCheckCircle, FaPlusCircle, FaCaretRight, FaCaretDown, FaPlus } from "react-icons/fa";
+import { FaEllipsisV, FaCheckCircle, FaCaretRight, FaCaretDown, FaPlus } from "react-icons/fa";
 import { useParams } from "react-router";
 function ModuleList() {
   const { courseId } = useParams();
