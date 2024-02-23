@@ -28,12 +28,7 @@ function KanbasNavigation() {
   const { pathname } = useLocation();
   return (
     <div>
-      <img
-        src={nLogo}
-        alt="nLogo"
-        width="80"
-        height="80"
-      ></img>
+      <img src={nLogo} alt="nLogo" width="80" height="80"></img>
       <ul className="wd-kanbas-navigation">
         {links.map((link, index) => (
           <li
