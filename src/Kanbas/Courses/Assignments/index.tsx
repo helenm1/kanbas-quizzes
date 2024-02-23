@@ -4,6 +4,7 @@ import {
   FaCheckCircle,
   FaEllipsisV,
   FaFileAlt,
+  FaPlus,
   FaPlusCircle,
 } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
@@ -39,8 +40,9 @@ function Assignments() {
             <FaEllipsisV className="me-2" /> <FaCaretDown className="me-2" />
             ASSIGNMENTS
             <span className="float-end">
+              <span className="assignment-weight me-2">40% of Total</span>
               <FaCheckCircle className="text-success" />
-              <FaPlusCircle className="ms-2" />
+              <FaPlus className="ms-2" />
               <FaEllipsisV className="ms-2" />
             </span>
           </div>
@@ -59,8 +61,9 @@ function Assignments() {
                   <FaCheckCircle className="text-success" />
                   <FaEllipsisV className="ms-2" />
                 </span>
-                <div className="ms-5 modules-text mb-2">
-                  Multiple Modules | Due Sep 18 at 11:59pm | 100 pts
+                <div className="ms-5 mb-2">
+                  <span className="modules-text me-2">Multiple Modules</span>
+                  <span>| Due Sep 18 at 11:59pm | 100 pts</span>
                 </div>
               </li>
             ))}
