@@ -11,7 +11,7 @@ import {
   FaShareSquare,
   FaRegQuestionCircle,
 } from "react-icons/fa";
-// import nLogo from "../../images/n-logo.png";
+import nLogo from "../../images/n-logo.png";
 
 function KanbasNavigation() {
   const links = [
@@ -25,26 +25,24 @@ function KanbasNavigation() {
     { label: "Commons", icon: <FaShareSquare className="fs-2" /> },
     { label: "Help", icon: <FaRegQuestionCircle className="fs-2" /> },
   ];
-    const { pathname } = useLocation();
-    return (
-      <ul className="wd-kanbas-navigation">
-        <li>
-          <a href="http://northeastern.edu">
-            <img src="/images/n-logo.png" alt=""/>
-          </a>
-        </li>
-        {links.map((link, index) => (
-          <li
-            key={index}
-            className={pathname.includes(link.label) ? "wd-active" : ""}
-          >
-            <Link to={`/Kanbas/${link.label}`}>
-              {" "}
-              {link.icon} <br /> {link.label}{" "}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    );
-  }
-  export default KanbasNavigation;
+  const { pathname } = useLocation();
+  return (
+    <div>
+      <img src={nLogo} alt="nLogo" width="80" height="80"></img>
+      <ul className="wd-kanbas-navigation">
+        {links.map((link, index) => (
+          <li
+            key={index}
+            className={pathname.includes(link.label) ? "wd-active" : ""}
+          >
+            <Link to={`/Kanbas/${link.label}`}>
+              {" "}
+              {link.icon} {link.label}{" "}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+export default KanbasNavigation;
