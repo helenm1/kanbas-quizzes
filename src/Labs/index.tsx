@@ -3,8 +3,13 @@ import Assignment4 from "./a4";
 import Nav from "../Nav";
 import { Route, Routes } from "react-router";
 import { Link } from "react-router-dom";
+import store from "./store";
+import { Provider } from "react-redux";
+
 function Labs() {
    return (
+    <Provider store={store}>
+
      <div className="container-fluid">
        <h1>Labs</h1>
        <Nav />
@@ -12,9 +17,11 @@ function Labs() {
        <Link to="/Labs/a4">Assignment 4</Link>
        <Routes>
          <Route path="/a3/*" element={<Assignment3 />} />
-         <Route path="/a4" element={<Assignment4 />} />
+         <Route path="a4"
+        element={<Assignment4/>}/>
        </Routes>
      </div>
+     </Provider>
    );
  }
  export default Labs;
