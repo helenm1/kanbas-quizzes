@@ -1,45 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import _courses from "../Database/courses.json";
-
-function Dashboard()
-  {
-//   courses,
-//   course,
-//   setCourse,
-//   addNewCourse,
-//   deleteCourse,
-//   updateCourse,
-// }: {
-//   courses: any;
-//   course: any;
-//   setCourse: (course: any) => void;
-//   addNewCourse: (course: any) => void;
-//   deleteCourse: (courseId: string) => void;
-//   updateCourse: () => void;
-// }
-
-
-{
+import { courses } from "../Database";
+function Dashboard() {
   const [_courses, setCourses] = useState(courses);
-  // const course = {
-  //   _id: "0", name: "New Course", number: "New Number",
-  //   startDate: "2023-09-10", endDate: "2023-12-15",
-  //   image: "/images/reactjs.jpg"
-  // };
-  const addNewCourse = () => {
-    const newCourse = { ...course,
-                        _id: new Date().getTime().toString() };
-    setCourses([...courses, { ...course, ...newCourse }]);
-  };
+
   const [course, setCourse] = useState({
-    _id: "0", name: "New Course", number: "New Number",
-    startDate: "2023-09-10", endDate: "2023-12-15",
-    image: "/images/reactjs.jpg"
+    _id: "0",
+    name: "New Course",
+    number: "New Number",
+    startDate: "2023-09-10",
+    endDate: "2023-12-15",
+    image: "/images/reactjs.jpg",
   });
-  const deleteCourse = (courseId: string) => {
-    setCourses(courses.filter((course) => course._id !== courseId));
-  };
+
   const updateCourse = () => {
     setCourses(
       courses.map((c) => {
@@ -52,9 +25,19 @@ function Dashboard()
     );
   };
 
+
+  const addNewCourse = () => {
+    const newCourse = { ...course, _id: new Date().getTime().toString() };
+    setCourses([...courses, { ...course, ...newCourse }]);
+  };
+
+  const deleteCourse = (courseId: string) => {
+    setCourses(courses.filter((course) => course._id !== courseId));
+  };
+
   return (
     <div className="p-4">
-      <h1>Dashboard</h1> <hr />
+      <h1>Dashboard</h1>
       <h5>Course</h5>
       <input
         value={course.name}
@@ -78,39 +61,38 @@ function Dashboard()
         type="date"
         onChange={(e) => setCourse({ ...course, endDate: e.target.value })}
       />
-      <button onClick={addNewCourse}>Add</button>
-      <button onClick={updateCourse}>Update</button>
-      <h2>Published Courses ({courses.length})</h2> <hr />
+      <button className="btn btn-success" onClick={addNewCourse}>
+        Add
+      </button>
+      <button  className="btn btn-light" onClick={updateCourse} >
+        Update
+      </button>
+
+      <hr />
+      <h2>Published Courses (3)</h2> <hr />
       <div className="row">
         <div className="row row-cols-1 row-cols-md-5 g-4">
-          {courses.map((course: any) => (
-            <div className="col" style={{ width: "300px" }} key={course._id}>
+          {_courses.map((course) => (
+            <div key={course._id} className="col" style={{ width: 300 }}>
               <div className="card">
                 <img
-                  src="/images/reactjs.jpg"
+                  src={`/images/${course.image}`}
                   className="card-img-top"
-                  style={{ maxHeight: "150px" }}
+                  style={{ height: 150 }}
                 />
                 <div className="card-body">
                   <Link
                     className="card-title"
-                    to={`/Kanbas/Courses/${course._id}`}
+                    to={`/Kanbas/Courses/${course._id}/Home`}
                     style={{
                       textDecoration: "none",
                       color: "navy",
                       fontWeight: "bold",
                     }}
                   >
-                    {course.name}
+                    {course.name}{" "}
                     <button
-                      onClick={(event) => {
-                        event.preventDefault();
-                        deleteCourse(course._id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                    <button
+                    className="btn btn-info"
                       onClick={(event) => {
                         event.preventDefault();
                         setCourse(course);
@@ -118,10 +100,21 @@ function Dashboard()
                     >
                       Edit
                     </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        deleteCourse(course._id);
+                      }}
+                    >
+                      Delete
+                    </button>
                   </Link>
-                  <p className="card-text">Full Stack software developer</p>
-                  <Link to="#" className="btn btn-primary">
-                    {" "}
+                  <p className="card-text">{course.name}</p>
+                  <Link
+                    to={`/Kanbas/Courses/${course._id}/Home`}
+                    className="btn btn-primary"
+                  >
                     Go{" "}
                   </Link>
                 </div>
@@ -133,6 +126,4 @@ function Dashboard()
     </div>
   );
 }
-  }
-
 export default Dashboard;
