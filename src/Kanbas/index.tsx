@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import KanbasNavigationNew from "./KanbasNavigationNew";
 import Dashboard from "./Dashboard";
 import Courses from "./Courses";
-import { courses } from "./Database";
 import { useState } from "react";
 import * as db from "./Database";
 

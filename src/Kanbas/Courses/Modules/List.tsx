@@ -1,63 +1,145 @@
 import React, { useState } from "react";
 import "./index.css";
 import { modules } from "../../Database";
-import { FaEllipsisV, FaCheckCircle, FaCaretRight, FaCaretDown, FaPlus } from "react-icons/fa";
+import {
+  FaEllipsisV,
+  FaCheckCircle,
+  FaCaretRight,
+  FaCaretDown,
+  FaPlus,
+} from "react-icons/fa";
 import { useParams } from "react-router";
 function ModuleList() {
   const { courseId } = useParams();
-  const modulesList = modules.filter((module) => module.course === courseId);
-  const [selectedModule, setSelectedModule] = useState(modulesList[0]);
+  const [moduleList, setModuleList] = useState<any[]>(modules);
+  const [module, setModule] = useState({
+    name: "New Module",
+    description: "New Description",
+    course: courseId,
+  });
+  const addModule = (module: any) => {
+    const newModule = { ...module, _id: new Date().getTime().toString() };
+    const newModuleList = [newModule, ...moduleList];
+    setModuleList(newModuleList);
+  };
+
+  // const modulesList = modules.filter((module) => module.course === courseId);
+  const [selectedModule, setSelectedModule] = useState(moduleList[0]);
   return (
     <>
-    <div className="d-flex justify-content-end mt-2">
-      <button className="btn btn-light me-2">Collapse All</button>
-      <button className="btn btn-light me-2">View Progress</button>
-      <select className="me-2 publish-dropdown">
-        <option>Publish All</option>
-        <option>Publish All Modules and Items</option>
-        <option>Publish Modules only</option>
-        <option>UnPublish All Modules</option>
-      </select>
-      <button className="btn btn-danger">+ Module</button>
-      <button className="btn btn-light">
-        <FaEllipsisV />
-      </button>
+      <div className="d-flex justify-content-end mt-2">
+        <button className="btn btn-light me-2">Collapse All</button>
+        <button className="btn btn-light me-2">View Progress</button>
+        <select className="me-2 publish-dropdown">
+          <option>Publish All</option>
+          <option>Publish All Modules and Items</option>
+          <option>Publish Modules only</option>
+          <option>UnPublish All Modules</option>
+        </select>
+        <button className="btn btn-danger">+ Module</button>
+        <button className="btn btn-light">
+          <FaEllipsisV />
+        </button>
       </div>
       <hr />
-      <ul className="list-group wd-modules">
-        {modulesList.map((module, index) => (
-          <li
-            key={index}
-            className="list-group-item"
-            onClick={() => setSelectedModule(module)}
-          >
-            <div>
-              <FaEllipsisV className="me-2" />
-              <FaCaretRight className="me-2" />
-              {module.name}
-              <span className="float-end">
-                <FaCheckCircle className="text-success" />
-                <FaCaretDown />
-                <FaPlus className="ms-2" />
-                <FaEllipsisV className="ms-2" />
-              </span>
+      <li className="list-group-item">
+        <div className="row align-items-left">
+          <div className="col-sm-4">
+            <input
+              value={module.name}
+              onChange={(e) =>
+                setModule({
+                  ...module,
+                  name: e.target.value,
+                })
+              }
+              className="form-control"
+              placeholder="Module Name"
+            />
+            <div className="col">
+              <textarea
+                value={module.description}
+                onChange={(e) =>
+                  setModule({
+                    ...module,
+                    description: e.target.value,
+                  })
+                }
+                className="form-control mt-2"
+                placeholder="Module Description"
+              />
             </div>
-            {selectedModule._id === module._id && (
-              <ul className="list-group">
-                {module.lessons?.map((lesson, index) => (
-                  <li className="list-group-item" key={index}>
-                    <FaEllipsisV className="me-2" />
-                    {lesson.name}
-                    <span className="float-end">
-                      <FaCheckCircle className="text-success" />
-                      <FaEllipsisV className="ms-2" />
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
+          </div>
+
+          <div className="col-auto">
+            <button
+              className="btn btn-success"
+              onClick={() => {
+                addModule(module);
+              }}
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      </li>
+
+      <ul className="list-group wd-modules">
+        {moduleList
+          .filter((module) => module.course === courseId)
+          .map((module, index) => (
+            <li
+              key={index}
+              className="list-group-item"
+              onClick={() => setSelectedModule(module)}
+            >
+              <div>
+                <FaEllipsisV className="me-2" />
+                <FaCaretRight className="me-2" />
+                {module.name}
+                <span className="float-end">
+                  <FaCheckCircle className="text-success" />
+                  <FaCaretDown />
+                  <FaPlus className="ms-2" />
+                  <FaEllipsisV className="ms-2" />
+                </span>
+                <p>{module.description}</p>
+                <p>{module._id}</p>
+              </div>
+              {selectedModule._id === module._id && (
+                <ul className="list-group">
+                  {module.lessons?.map(
+                    (
+                      lesson: {
+                        name:
+                          | string
+                          | number
+                          | boolean
+                          | React.ReactElement<
+                              any,
+                              string | React.JSXElementConstructor<any>
+                            >
+                          | Iterable<React.ReactNode>
+                          | React.ReactPortal
+                          | null
+                          | undefined;
+                      },
+                      index: React.Key | null | undefined
+                    ) => (
+                      <li className="list-group-item" key={index}>
+                        <FaEllipsisV className="me-2" />
+                        {lesson.name}
+                        <span className="float-end">
+                          <FaCheckCircle className="text-success" />
+                          <FaEllipsisV className="ms-2" />
+                        </span>
+                      </li>
+                    )
+                  )}
+                </ul>
+              )}
+            </li>
+          ))}
       </ul>
     </>
   );
