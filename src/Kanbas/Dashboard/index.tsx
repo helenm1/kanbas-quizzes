@@ -1,39 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { courses } from "../Database";
-function Dashboard() {
-  const [_courses, setCourses] = useState(courses);
-
-  const [course, setCourse] = useState({
-    _id: "0",
-    name: "New Course",
-    number: "New Number",
-    startDate: "2023-09-10",
-    endDate: "2023-12-15",
-    image: "/images/reactjs.jpg",
-  });
-
-  const updateCourse = () => {
-    setCourses(
-      courses.map((c) => {
-        if (c._id === course._id) {
-          return course;
-        } else {
-          return c;
-        }
-      })
-    );
-  };
-
-
-  const addNewCourse = () => {
-    const newCourse = { ...course, _id: new Date().getTime().toString() };
-    setCourses([...courses, { ...course, ...newCourse }]);
-  };
-
-  const deleteCourse = (courseId: string) => {
-    setCourses(courses.filter((course) => course._id !== courseId));
-  };
+function Dashboard({
+  courses,
+  course,
+  setCourse,
+  addNewCourse,
+  deleteCourse,
+  updateCourse,
+}: {
+  courses: any;
+  course: any;
+  setCourse: (course: any) => void;
+  addNewCourse: () => void;
+  deleteCourse: (id: string) => void;
+  updateCourse: () => void;
+}) {
 
   return (
     <div className="p-4">
@@ -72,7 +54,7 @@ function Dashboard() {
       <h2>Published Courses (3)</h2> <hr />
       <div className="row">
         <div className="row row-cols-1 row-cols-md-5 g-4">
-          {_courses.map((course) => (
+          {courses.map((course: any) => (
             <div key={course._id} className="col" style={{ width: 300 }}>
               <div className="card">
                 <img
@@ -125,5 +107,6 @@ function Dashboard() {
       </div>
     </div>
   );
+                    
 }
 export default Dashboard;

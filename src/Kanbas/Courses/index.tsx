@@ -13,7 +13,7 @@ import Modules from "./Modules";
 import Home from "./Home";
 import Assignments from "./Assignments";
 
-function Courses() {
+function Courses({ courses }: { courses: any[]; }) {
   const { courseId } = useParams();
   const { pathname } = useLocation();
   const courseSection = pathname.split("/").slice(-1)[0];
