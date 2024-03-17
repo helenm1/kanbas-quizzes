@@ -4,6 +4,8 @@ import Dashboard from "./Dashboard";
 import Courses from "./Courses";
 import { useState } from "react";
 import * as db from "./Database";
+import store from "./store";
+import { Provider } from "react-redux";
 
 function Kanbas() {
   const [courses, setCourses] = useState<any[]>(db.courses);
@@ -31,6 +33,7 @@ const deleteCourse = (courseId: any) => {
     );
   };
   return (
+    <Provider store={store}>
     <div className="d-flex">
       <KanbasNavigationNew />
       <div style={{ flexGrow: 1 }}>
@@ -51,6 +54,7 @@ const deleteCourse = (courseId: any) => {
         </Routes>
       </div>
     </div>
+    </Provider>
   );
 }
 export default Kanbas;

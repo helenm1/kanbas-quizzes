@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./index.css";
-import { modules } from "../../Database";
 import {
   FaEllipsisV,
   FaCheckCircle,
@@ -9,21 +8,18 @@ import {
   FaPlus,
 } from "react-icons/fa";
 import { useParams } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { addModule, deleteModule, updateModule, setModule } from "./reducer";
+import { KanbasState } from "../../store";
 function ModuleList() {
   const { courseId } = useParams();
-  const [moduleList, setModuleList] = useState<any[]>(modules);
-  const [module, setModule] = useState({
-    name: "New Module",
-    description: "New Description",
-    course: courseId,
-  });
-  const addModule = (module: any) => {
-    const newModule = { ...module, _id: new Date().getTime().toString() };
-    const newModuleList = [newModule, ...moduleList];
-    setModuleList(newModuleList);
-  };
-
-  // const modulesList = modules.filter((module) => module.course === courseId);
+  const moduleList = useSelector(
+    (state: KanbasState) => state.modulesReducer.modules
+  );
+  const module = useSelector(
+    (state: KanbasState) => state.modulesReducer.module
+  );
+  const dispatch = useDispatch();
   const [selectedModule, setSelectedModule] = useState(moduleList[0]);
   return (
     <>
@@ -48,10 +44,7 @@ function ModuleList() {
             <input
               value={module.name}
               onChange={(e) =>
-                setModule({
-                  ...module,
-                  name: e.target.value,
-                })
+                dispatch(setModule({ ...module, name: e.target.value }))
               }
               className="form-control"
               placeholder="Module Name"
@@ -60,10 +53,9 @@ function ModuleList() {
               <textarea
                 value={module.description}
                 onChange={(e) =>
-                  setModule({
-                    ...module,
-                    description: e.target.value,
-                  })
+                  dispatch(
+                    setModule({ ...module, description: e.target.value })
+                  )
                 }
                 className="form-control mt-2"
                 placeholder="Module Description"
@@ -73,10 +65,16 @@ function ModuleList() {
 
           <div className="col-auto">
             <button
+              className="btn btn-primary"
+              onClick={() => dispatch(updateModule(module))}
+            >
+              Update
+            </button>
+            <button
               className="btn btn-success"
-              onClick={() => {
-                addModule(module);
-              }}
+              onClick={() =>
+                dispatch(addModule({ ...module, course: courseId }))
+              }
             >
               Add
             </button>
@@ -93,6 +91,18 @@ function ModuleList() {
               className="list-group-item"
               onClick={() => setSelectedModule(module)}
             >
+              <button
+                className="btn btn-success float-end ms-2 me-2 mt-2"
+                onClick={() => dispatch(setModule(module))}>
+                Edit
+              </button>
+
+              <button
+                className="btn btn-danger float-end ms-2 me-2 mt-2"
+                onClick={() => dispatch(deleteModule(module._id))}>
+                Delete
+              </button>
+
               <div>
                 <FaEllipsisV className="me-2" />
                 <FaCaretRight className="me-2" />

@@ -46,7 +46,7 @@ function Dashboard({
       <button className="btn btn-success" onClick={addNewCourse}>
         Add
       </button>
-      <button  className="btn btn-light" onClick={updateCourse} >
+      <button  className="btn btn-primary" onClick={updateCourse} >
         Update
       </button>
 
