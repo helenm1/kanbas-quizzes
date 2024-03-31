@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 function WorkingWithObjects() {
   const [assignment, setAssignment] = useState({
     id: 1,
@@ -15,11 +16,35 @@ function WorkingWithObjects() {
     description: "module 1 description",
     course: "bleh",
   });
-  const MODULE = "http://localhost:4000/a5/module";
+  const MODULE_URL = "http://localhost:4000/a5/module";
+  
+  const fetchAssignment = async () => {
+    const response = await axios.get(`${ASSIGNMENT_URL}`);
+    setAssignment(response.data);
+  };
+  const updateTitle = async () => {
+    const response = await axios
+      .get(`${ASSIGNMENT_URL}/title/${assignment.title}`);
+    setAssignment(response.data);
+  };
+  useEffect(() => {
+    fetchAssignment();
+  }, []);
+
   return (
     <div>
       <h3>Working With Objects</h3>
-      <h4>Modifying Properties</h4>
+      <h3>Modifying Properties</h3>
+      <input onChange={(e) => setAssignment({
+            ...assignment, title: e.target.value })}
+        value={assignment.title} type="text" />
+      <button onClick={updateTitle} >
+        Update Title to: {assignment.title}
+      </button>
+      <button onClick={fetchAssignment} >
+        Fetch Assignment
+      </button>
+      <h4>Old Modifying Properties</h4>
       <a href={`${ASSIGNMENT_URL}/title/${assignment.title}`}>Update Title</a>
       <input
         type="text"
@@ -50,7 +75,7 @@ function WorkingWithObjects() {
       <h4>Retrieving Properties</h4>
       <a href="http://localhost:4000/a5/assignment/title">Get Title</a>
 
-      <a href={`${MODULE}/title/${module.name}`}>Update Name</a>
+      <a href={`${MODULE_URL}/title/${module.name}`}>Update Name</a>
       <input
         type="text"
         onChange={(e) => setModule({ ...module, name: e.target.value })}
