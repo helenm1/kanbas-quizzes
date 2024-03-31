@@ -7,6 +7,7 @@ export default function Courses(app) {
   app.get("/api/courses", (req, res) => {
     res.send(db.courses);
   });
+
   // Read one course by id
   app.get("/api/courses/:id", (req, res) => {
     const id = req.params.id;
@@ -16,13 +17,15 @@ export default function Courses(app) {
     }
     res.send(course);
   });
+  
   // Create a new course
   app.post("/api/courses", (req, res) => {
     const course = { ...req.body, _id: Date.now().toString() };
     db.courses.push(course);
     res.send(courses);
   });
-
+    
+  // Delete a course
   app.delete("/api/courses/:id", (req, res) => {
     const id = req.params.id;
     const courseIndex = db.courses.findIndex((c) => c._id === id);
@@ -32,6 +35,15 @@ export default function Courses(app) {
     db.courses.splice(courseIndex, 1);
     res.send(db.courses);
   });
+
   // Update a course
-  // Delete a course
+  app.put("/api/courses/:id", (req, res) => {
+    const { id } = req.params;
+    const course = req.body;
+    db .courses = db.courses.map((c) =>
+      c._id === id ? { ...c, ...course } : c
+    );
+    res.sendStatus(204);
+  });
+
 }
