@@ -58,7 +58,7 @@ function Dashboard({
             <div key={course._id} className="col" style={{ width: 300 }}>
               <div className="card">
                 <img
-                  src={`/images/${course.image}`}
+                  src={`/images/code.jpg`}
                   className="card-img-top"
                   style={{ height: 150 }}
                 />
