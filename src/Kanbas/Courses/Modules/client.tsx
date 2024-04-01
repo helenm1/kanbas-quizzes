@@ -1,6 +1,6 @@
 import axios from "axios";
-const COURSES_API = "https://kanbas-node-server-app.onrender.com/api/courses";
-const MODULES_API = "https://kanbas-node-server-app.onrender.com/api/modules";
+const COURSES_API = "https://kanbas-node-server-app-sp24-test-2.onrender.com/api/courses";
+const MODULES_API = "https://kanbas-node-server-app-sp24-test-2.onrender.com/api/courses/RS101/modules";
 export const createModule = async (courseId: any, module: any) => {
   const response = await axios.post(
     `${COURSES_API}/${courseId}/modules`,
