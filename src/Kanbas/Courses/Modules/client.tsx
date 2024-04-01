@@ -7,6 +7,7 @@ export const createModule = async (courseId: any, module: any) => {
     `${COURSES_API}/${courseId}/modules`,
     module
   );
+  
   return response.data;
 };
 export const findModulesForCourse = async (courseId: any) => {
