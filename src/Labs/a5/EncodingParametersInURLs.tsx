@@ -20,7 +20,6 @@ function EncodingParametersInURLs() {
     setWelcome(response.data);
   };
   useEffect(() => {
-    // fetchWelcome();
   }, []);
   return (
     <div>
