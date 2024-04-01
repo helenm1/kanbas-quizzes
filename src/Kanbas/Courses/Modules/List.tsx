@@ -136,7 +136,7 @@ function ModuleList() {
                 <p>{module.description}</p>
                 <p>{module._id}</p>
               </div>
-              {selectedModule._id === module._id && (
+              {selectedModule?._id === module._id && (
                 <ul className="list-group">
                   {module.lessons?.map(
                     (
