@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import KanbasNavigationNew from "./KanbasNavigationNew";
+import Account from "./Account";
 import Dashboard from "./Dashboard";
 import Courses from "./Courses";
 import { useState, useEffect } from "react";
@@ -54,8 +55,8 @@ function Kanbas() {
         <KanbasNavigationNew />
         <div style={{ flexGrow: 1 }}>
           <Routes>
+          <Route path="/Account/*" element={<Account />} />
             <Route path="/" element={<Navigate to="Dashboard" />} />
-            <Route path="Account" element={<h1>Account</h1>} />
             <Route
               path="Dashboard"
               element={
