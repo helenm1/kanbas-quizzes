@@ -1,4 +1,5 @@
 import { courses } from "../../Kanbas/Database";
+import * as courseClient from "./client";
 import {
   Navigate,
   Route,
@@ -17,16 +18,18 @@ import { useEffect, useState } from "react";
 
 function Courses() {
   const { courseId } = useParams();
-  const COURSES_API = "http://localhost:4000/api/courses";
-  const [course, setCourse] = useState<any>({ _id: "" });
-  const findCourseById = async (courseId?: string) => {
-    const response = await axios.get(
-      `${COURSES_API}/${courseId}`
-    );
-    setCourse(response.data);
+  // const COURSES_API = "http://localhost:4000/api/courses";
+  const [course, setCourse] = useState({ name: "" });
+  const fetchCourse = async () => {
+    const course = await courseClient.fetchCourseById(courseId);
+    setCourse(course);
   };
+  // const findCourseById = async (courseId?: string) => {
+  //   const response = await axios.get(`${COURSES_API}/${courseId}`);
+  //   setCourse(response.data);
+  // };
   useEffect(() => {
-    findCourseById(courseId);
+    fetchCourse();
   }, [courseId]);
   const { pathname } = useLocation();
   const courseSection = pathname.split("/").slice(-1)[0];
