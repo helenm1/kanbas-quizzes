@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_BASE = process.env.REACT_APP_API_BASE;
+const API_BASE = process.env.REACT_APP_API_BASE_URL;
 const COURSES_API = `${API_BASE}/api/courses`;
 const MODULES_API = `${API_BASE}/api/modules`;
 export const createModule = async (courseId: any, module: any) => {
@@ -7,12 +7,11 @@ export const createModule = async (courseId: any, module: any) => {
     `${COURSES_API}/${courseId}/modules`,
     module
   );
-  
+
   return response.data;
 };
 export const findModulesForCourse = async (courseId: any) => {
-  const response = await axios
-    .get(`${COURSES_API}/${courseId}/modules`);
+  const response = await axios.get(`${COURSES_API}/${courseId}/modules`);
   return response.data;
 };
 export function deleteModule(moduleId: string) {
@@ -22,4 +21,3 @@ export function deleteModule(moduleId: string) {
 export function updateModule(module: any) {
   throw new Error("Function not implemented.");
 }
-
