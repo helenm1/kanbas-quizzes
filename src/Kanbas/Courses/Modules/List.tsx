@@ -9,16 +9,21 @@ import {
 } from "react-icons/fa";
 import { useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import { addModule, deleteModule, updateModule, setModule, setModules } from "./reducer";
+import {
+  addModule,
+  deleteModule,
+  updateModule,
+  setModule,
+  setModules,
+} from "./reducer";
 import { KanbasState } from "../../store";
 import * as client from "./client";
 function ModuleList() {
   const { courseId } = useParams();
   useEffect(() => {
-    client.findModulesForCourse(courseId)
-      .then((modules) =>
-        dispatch(setModules(modules))
-    );
+    client
+      .findModulesForCourse(courseId)
+      .then((modules) => dispatch(setModules(modules)));
   }, [courseId]);
   const moduleList = useSelector(
     (state: KanbasState) => state.modulesReducer.modules
@@ -86,16 +91,10 @@ function ModuleList() {
           </div>
 
           <div className="col-auto">
-            <button
-              className="btn btn-primary"
-              onClick={handleUpdateModule}
-            >
+            <button className="btn btn-primary" onClick={handleUpdateModule}>
               Update
             </button>
-            <button
-              className="btn btn-success"
-              onClick={handleAddModule}
-            >
+            <button className="btn btn-success" onClick={handleAddModule}>
               Add
             </button>
           </div>
@@ -113,13 +112,15 @@ function ModuleList() {
             >
               <button
                 className="btn btn-success float-end ms-2 me-2 mt-2"
-                onClick={() => dispatch(setModule(module))}>
+                onClick={() => dispatch(setModule(module))}
+              >
                 Edit
               </button>
 
               <button
                 className="btn btn-danger float-end ms-2 me-2 mt-2"
-                onClick={() => handleDeleteModule(module._id)}>
+                onClick={() => handleDeleteModule(module._id)}
+              >
                 Delete
               </button>
 

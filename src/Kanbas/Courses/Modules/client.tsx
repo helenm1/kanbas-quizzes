@@ -7,19 +7,19 @@ export const createModule = async (courseId: any, module: any) => {
     `${COURSES_API}/${courseId}/modules`,
     module
   );
-  
+
   return response.data;
 };
 export const findModulesForCourse = async (courseId: any) => {
-  const response = await axios
-    .get(`${COURSES_API}/${courseId}/modules`);
+  const response = await axios.get(`${COURSES_API}/${courseId}/modules`);
   return response.data;
 };
-export function deleteModule(moduleId: string) {
-  throw new Error("Function not implemented.");
-}
+export const deleteModule = async (moduleId: any) => {
+  const response = await axios.delete(`${MODULES_API}/${moduleId}`);
+  return response.data;
+};
 
-export function updateModule(module: any) {
-  throw new Error("Function not implemented.");
-}
-
+export const updateModule = async (module: { _id: any }) => {
+  const response = await axios.put(`${MODULES_API}/${module._id}`, module);
+  return response.data;
+};
