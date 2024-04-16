@@ -33,19 +33,11 @@ function ModuleList() {
     try {
       const newModule = await modulesClient.createModule(courseId, module);
       dispatch(addModule(newModule));
-      // const modules = await modulesClient.findModulesForCourse(courseId);
-      // dispatch(setModules([...modules, newModule]));
     } catch (err) {
       console.log(err);
     }
-    // modulesClient.createModule(courseId, module).then((module) => {
-    //   dispatch(addModule(module));
-    // });
   };
   const handleDeleteModule = async (module: Module) => {
-    console.log("module to delete", module);
-    console.log("module id", module._id);
-    console.log("course id", courseId);
     await modulesClient.deleteModule(module);
     dispatch(deleteModule(module._id));
     fetchAllModules();
