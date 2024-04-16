@@ -9,39 +9,68 @@ import {
 } from "react-icons/fa";
 import { useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import { addModule, deleteModule, updateModule, setModule, setModules } from "./reducer";
+import {
+  addModule,
+  deleteModule,
+  updateModule,
+  setModule,
+  setModules,
+} from "./reducer";
 import { KanbasState } from "../../store";
-import * as client from "./client";
+import * as modulesClient from "./client";
+
 function ModuleList() {
   const { courseId } = useParams();
-  useEffect(() => {
-    client.findModulesForCourse(courseId)
-      .then((modules) =>
-        dispatch(setModules(modules))
-    );
-  }, [courseId]);
   const moduleList = useSelector(
     (state: KanbasState) => state.modulesReducer.modules
   );
+  console.log(moduleList);
   const module = useSelector(
     (state: KanbasState) => state.modulesReducer.module
   );
-  const handleAddModule = () => {
-    client.createModule(courseId, module).then((module) => {
-      dispatch(addModule(module));
-    });
+
+  const handleAddModule = async () => {
+    try {
+      const newModule = await modulesClient.createModule(courseId, module);
+      dispatch(addModule(newModule));
+      // const modules = await modulesClient.findModulesForCourse(courseId);
+      // dispatch(setModules([...modules, newModule]));
+      console.log(newModule);
+    } catch (err) {
+      console.log(err);
+    }
+    // modulesClient.createModule(courseId, module).then((module) => {
+    //   dispatch(addModule(module));
+    // });
   };
-  const handleDeleteModule = (moduleId: string) => {
-    client.deleteModule(moduleId);
-    dispatch(deleteModule(moduleId));
+  const handleDeleteModule = async (moduleId: string) => {
+    try {
+      modulesClient.deleteModule(moduleId);
+      dispatch(deleteModule(moduleId));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const dispatch = useDispatch();
   const [selectedModule, setSelectedModule] = useState(moduleList[0]);
+
   const handleUpdateModule = async () => {
-    const status = await client.updateModule(module);
+    await modulesClient.updateModule(module);
     dispatch(updateModule(module));
   };
+
+  const fetchAllModules = async () => {
+    const modules = await modulesClient.findModulesForCourse(courseId);
+    dispatch(setModules(modules));
+  };
+
+  useEffect(() => {
+    fetchAllModules();
+    modulesClient
+      .findModulesForCourse(courseId)
+      .then((modules) => dispatch(setModules(modules)));
+  }, [courseId]);
 
   return (
     <>
@@ -86,16 +115,10 @@ function ModuleList() {
           </div>
 
           <div className="col-auto">
-            <button
-              className="btn btn-primary"
-              onClick={handleUpdateModule}
-            >
+            <button className="btn btn-primary" onClick={handleUpdateModule}>
               Update
             </button>
-            <button
-              className="btn btn-success"
-              onClick={handleAddModule}
-            >
+            <button className="btn btn-success" onClick={handleAddModule}>
               Add
             </button>
           </div>
@@ -113,13 +136,15 @@ function ModuleList() {
             >
               <button
                 className="btn btn-success float-end ms-2 me-2 mt-2"
-                onClick={() => dispatch(setModule(module))}>
+                onClick={() => dispatch(setModule(module))}
+              >
                 Edit
               </button>
 
               <button
                 className="btn btn-danger float-end ms-2 me-2 mt-2"
-                onClick={() => handleDeleteModule(module._id)}>
+                onClick={() => handleDeleteModule(module._id)}
+              >
                 Delete
               </button>
 

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { courses } from "../Database";
 import * as courseClient from "../Courses/client";
+import { Course } from "../Courses/client";
 
 function Dashboard() {
   // how can i specify type of courses
-  const [courses, setCourses] = useState<any[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]);
   // const [courses, setCourses] = useState([]);
-  const [course, setCourse] = useState({
+  const [course, setCourse] = useState<Course>({
     name: "",
     number: "",
     startDate: "",
@@ -20,13 +21,21 @@ function Dashboard() {
     const courses = await courseClient.fetchCourses();
     setCourses(courses);
   };
-  const deleteCourse = async (courseId: string) => {
-    const courses = await courseClient.deleteCourse(courseId);
-    setCourses(courses);
+  const deleteCourse = async (course: Course) => {
+    console.log("course in index", course, typeof course);
+    await courseClient.deleteCourse(course);
+    // setCourses(courses);
+    fetchAllCourses();
   };
   const addCourse = async () => {
     const newCourse = await courseClient.createCourse(course);
     setCourses([...courses, newCourse]);
+  };
+
+  const updateCourse = async (course: Course) => {
+    await courseClient.updateCourse(course);
+    // fetchAllCourses();
+    // setCourses([...courses, newCourse]);
   };
   useEffect(() => {
     fetchAllCourses();
@@ -60,9 +69,15 @@ function Dashboard() {
       <button className="btn btn-success" onClick={addCourse}>
         Add
       </button>
-      {/* <button className="btn btn-primary" onClick={updateCourse}>
+      <button
+        className="btn btn-primary"
+        onClick={(event) => {
+          event.preventDefault();
+          updateCourse(course);
+        }}
+      >
         Update
-      </button> */}
+      </button>
       <hr />
       <h2>Published Courses (3)</h2> <hr />
       <div className="row">
@@ -101,7 +116,7 @@ function Dashboard() {
                         className="btn btn-danger"
                         onClick={(event) => {
                           event.preventDefault();
-                          deleteCourse(course._id);
+                          deleteCourse(course);
                         }}
                       >
                         Delete
