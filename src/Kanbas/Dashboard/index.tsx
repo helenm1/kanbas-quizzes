@@ -34,7 +34,7 @@ function Dashboard() {
 
   const updateCourse = async (course: Course) => {
     await courseClient.updateCourse(course);
-    // fetchAllCourses();
+    fetchAllCourses();
     // setCourses([...courses, newCourse]);
   };
   useEffect(() => {
