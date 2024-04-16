@@ -18,13 +18,13 @@ import {
 } from "./reducer";
 import { KanbasState } from "../../store";
 import * as modulesClient from "./client";
+import { Module } from "./client";
 
 function ModuleList() {
   const { courseId } = useParams();
   const moduleList = useSelector(
     (state: KanbasState) => state.modulesReducer.modules
   );
-  console.log(moduleList);
   const module = useSelector(
     (state: KanbasState) => state.modulesReducer.module
   );
@@ -35,7 +35,6 @@ function ModuleList() {
       dispatch(addModule(newModule));
       // const modules = await modulesClient.findModulesForCourse(courseId);
       // dispatch(setModules([...modules, newModule]));
-      console.log(newModule);
     } catch (err) {
       console.log(err);
     }
@@ -43,13 +42,13 @@ function ModuleList() {
     //   dispatch(addModule(module));
     // });
   };
-  const handleDeleteModule = async (moduleId: string) => {
-    try {
-      modulesClient.deleteModule(moduleId);
-      dispatch(deleteModule(moduleId));
-    } catch (err) {
-      console.log(err);
-    }
+  const handleDeleteModule = async (module: Module) => {
+    console.log("module to delete", module);
+    console.log("module id", module._id);
+    console.log("course id", courseId);
+    await modulesClient.deleteModule(module);
+    dispatch(deleteModule(module._id));
+    fetchAllModules();
   };
 
   const dispatch = useDispatch();
@@ -143,7 +142,7 @@ function ModuleList() {
 
               <button
                 className="btn btn-danger float-end ms-2 me-2 mt-2"
-                onClick={() => handleDeleteModule(module._id)}
+                onClick={() => handleDeleteModule(module)}
               >
                 Delete
               </button>
