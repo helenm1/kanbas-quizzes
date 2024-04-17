@@ -44,8 +44,3 @@ export const updateCourse = async (course: Course) => {
   const response = await axios.put(`${COURSES_API}/${course._id}`, course);
   return response.data;
 };
-
-// fetch a single course
-// create a course
-// update a course
-// delete a course

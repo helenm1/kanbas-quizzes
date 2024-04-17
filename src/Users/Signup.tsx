@@ -35,7 +35,10 @@ export default function Signup() {
           })
         }
       />
-      <button onClick={signup}> Signup </button>
+      <button className="btn btn-primary" onClick={signup}>
+        {" "}
+        Signup{" "}
+      </button>
     </div>
   );
 }

@@ -5,26 +5,22 @@ import * as courseClient from "../Courses/client";
 import { Course } from "../Courses/client";
 
 function Dashboard() {
-  // how can i specify type of courses
   const [courses, setCourses] = useState<Course[]>([]);
-  // const [courses, setCourses] = useState([]);
   const [course, setCourse] = useState<Course>({
-    name: "",
+    name: "New Course",
     number: "",
     startDate: "",
     endDate: "",
     department: "",
     credits: "",
-    description: "",
-  }); // courses.find((c) => c._id === courseId);
+    description: "New Description",
+  });
   const fetchAllCourses = async () => {
     const courses = await courseClient.fetchCourses();
     setCourses(courses);
   };
   const deleteCourse = async (course: Course) => {
-    console.log("course in index", course, typeof course);
     await courseClient.deleteCourse(course);
-    // setCourses(courses);
     fetchAllCourses();
   };
   const addCourse = async () => {
@@ -35,7 +31,6 @@ function Dashboard() {
   const updateCourse = async (course: Course) => {
     await courseClient.updateCourse(course);
     fetchAllCourses();
-    // setCourses([...courses, newCourse]);
   };
   useEffect(() => {
     fetchAllCourses();
@@ -50,9 +45,9 @@ function Dashboard() {
         onChange={(e) => setCourse({ ...course, name: e.target.value })}
       />
       <input
-        value={course.number}
+        value={course.description}
         className="form-control"
-        onChange={(e) => setCourse({ ...course, number: e.target.value })}
+        onChange={(e) => setCourse({ ...course, description: e.target.value })}
       />
       <input
         value={course.startDate}
