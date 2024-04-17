@@ -1,0 +1,16 @@
+.fa-exclamation-circle {
+    color: red;
+  }
+  
+  .to-do {
+    display: inline;
+    margin-left: 5px;
+  }
+  
+  .status-links {
+    text-decoration: none !important;
+    color: red !important;
+    outline: none !important;
+    border: none !important;
+  }
+  

@@ -1,0 +1,17 @@
+.modules-text{
+    color: red;
+}
+.assignmentLinks{
+    text-decoration: none !important;
+    font-weight: bold;
+    color: black !important;
+    outline: none !important;
+    border: none !important;
+}
+
+.assignment-weight{
+    border-radius: 10px;
+    border: 1px solid grey;
+    padding: 3px;
+    color: grey;
+}
