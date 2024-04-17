@@ -23,7 +23,6 @@ import { Module } from "./client";
 function ModuleList() {
   const { courseId } = useParams();
   const validatedCourseId = courseId ? courseId : "";
-  console.log("courseId", validatedCourseId);
 
   const moduleList = useSelector(
     (state: KanbasState) => state.modulesReducer.modules

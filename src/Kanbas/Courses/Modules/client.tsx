@@ -2,7 +2,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 const API_BASE = process.env.REACT_APP_BASE_API_URL;
 const COURSES_API = `${API_BASE}/api/courses`;
-const MODULES_API = `${API_BASE}/api/courses/:courseId/modules`;
+// const MODULES_API = `${API_BASE}/api/courses/:courseId/modules`;
 
 export interface Module {
   _id?: string;
@@ -32,20 +32,13 @@ export const deleteModule = async (courseId: string, module: Module) => {
   const response = await axios.delete(
     `${generateModulesApi(courseId)}/${module._id}`
   );
-  console.log(response.data);
   return response.data;
 };
-
-// export const deleteModule = async (module: Module) => {
-//   const response = await axios.delete(`${MODULES_API}/${module._id}`);
-//   return response.data;
-// };
 
 export const updateModule = async (courseId: string, module: Module) => {
   const response = await axios.put(
     `${generateModulesApi(courseId)}/${module._id}`,
     module
   );
-  console.log(response.data);
   return response.data;
 };
