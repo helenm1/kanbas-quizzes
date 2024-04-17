@@ -46,9 +46,10 @@ function ModuleList() {
   const dispatch = useDispatch();
   const [selectedModule, setSelectedModule] = useState(moduleList[0]);
 
-  const handleUpdateModule = async () => {
+  const handleUpdateModule = async (module: Module) => {
     await modulesClient.updateModule(module);
     dispatch(updateModule(module));
+    fetchAllModules();
   };
 
   const fetchAllModules = async () => {
@@ -106,9 +107,16 @@ function ModuleList() {
           </div>
 
           <div className="col-auto">
-            <button className="btn btn-primary" onClick={handleUpdateModule}>
+            <button
+              className="btn btn-primary"
+              onClick={(event) => {
+                event.preventDefault();
+                handleUpdateModule(module);
+              }}
+            >
               Update
             </button>
+
             <button className="btn btn-success" onClick={handleAddModule}>
               Add
             </button>

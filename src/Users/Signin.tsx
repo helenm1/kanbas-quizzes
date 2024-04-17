@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { User } from "./client";
 import * as client from "./client";
+import Signup from "./Signup";
 export default function Signin() {
   const [credentials, setCredentials] = useState<User>({
     _id: "",
@@ -15,6 +16,10 @@ export default function Signin() {
   const signin = async () => {
     await client.signin(credentials);
     navigate("/Kanbas/Account/Profile");
+  };
+  const signup = async () => {
+    // await client.signin(credentials);
+    navigate("/Signup");
   };
   return (
     <div>
@@ -32,6 +37,8 @@ export default function Signin() {
         }
       />
       <button onClick={signin}> Signin </button>
+      <br />
+      <Signup />
     </div>
   );
 }
