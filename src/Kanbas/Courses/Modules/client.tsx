@@ -12,21 +12,26 @@ export interface Module {
   lessons?: any[];
 }
 
-export const findModulesForCourse = async (courseId: any) => {
-  const response = await axios.get(`${COURSES_API}/${courseId}/modules`);
+const generateModulesApi = (courseId: string) =>
+  `${COURSES_API}/${courseId}/modules`;
+
+export const findModulesForCourse = async (courseId: string) => {
+  const response = await axios.get(generateModulesApi(courseId));
   return response.data;
 };
 
-export const createModule = async (courseId: any, module: any) => {
-  const response = await axios.post(`${COURSES_API}/${courseId}/modules`, {
+export const createModule = async (courseId: string, module: any) => {
+  const response = await axios.post(generateModulesApi(courseId), {
     ...module,
     course: courseId,
   });
   return response.data;
 };
 
-export const deleteModule = async (module: Module) => {
-  const response = await axios.delete(`${MODULES_API}/${module._id}`);
+export const deleteModule = async (courseId: string, module: Module) => {
+  const response = await axios.delete(
+    `${generateModulesApi(courseId)}/${module._id}`
+  );
   console.log(response.data);
   return response.data;
 };
@@ -36,8 +41,11 @@ export const deleteModule = async (module: Module) => {
 //   return response.data;
 // };
 
-export const updateModule = async (module: Module) => {
-  const response = await axios.put(`${MODULES_API}/${module._id}`, module);
+export const updateModule = async (courseId: string, module: Module) => {
+  const response = await axios.put(
+    `${generateModulesApi(courseId)}/${module._id}`,
+    module
+  );
   console.log(response.data);
   return response.data;
 };

@@ -22,6 +22,9 @@ import { Module } from "./client";
 
 function ModuleList() {
   const { courseId } = useParams();
+  const validatedCourseId = courseId ? courseId : "";
+  console.log("courseId", validatedCourseId);
+
   const moduleList = useSelector(
     (state: KanbasState) => state.modulesReducer.modules
   );
@@ -31,14 +34,19 @@ function ModuleList() {
 
   const handleAddModule = async () => {
     try {
-      const newModule = await modulesClient.createModule(courseId, module);
+      const moduleData = { ...module };
+      delete moduleData._id;
+      const newModule = await modulesClient.createModule(
+        validatedCourseId,
+        moduleData
+      );
       dispatch(addModule(newModule));
     } catch (err) {
       console.log(err);
     }
   };
   const handleDeleteModule = async (module: Module) => {
-    await modulesClient.deleteModule(module);
+    await modulesClient.deleteModule(validatedCourseId, module);
     dispatch(deleteModule(module._id));
     fetchAllModules();
   };
@@ -47,22 +55,22 @@ function ModuleList() {
   const [selectedModule, setSelectedModule] = useState(moduleList[0]);
 
   const handleUpdateModule = async (module: Module) => {
-    await modulesClient.updateModule(module);
+    await modulesClient.updateModule(validatedCourseId, module);
     dispatch(updateModule(module));
     fetchAllModules();
   };
 
   const fetchAllModules = async () => {
-    const modules = await modulesClient.findModulesForCourse(courseId);
+    const modules = await modulesClient.findModulesForCourse(validatedCourseId);
     dispatch(setModules(modules));
   };
 
   useEffect(() => {
     fetchAllModules();
     modulesClient
-      .findModulesForCourse(courseId)
+      .findModulesForCourse(validatedCourseId)
       .then((modules) => dispatch(setModules(modules)));
-  }, [courseId]);
+  }, [validatedCourseId]);
 
   return (
     <>
