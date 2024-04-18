@@ -1,0 +1,50 @@
+.wd-quizzes,
+.wd-quizzes * {
+  border-radius: 0%;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.wd-quizzes {
+  margin: 5px;
+}
+
+.wd-quizzes > li {
+  background-color: lightgray;
+  border: 1px solid lightgrey !important;
+  border-left: none !important;
+  margin-bottom: 50px;
+}
+
+.wd-quizzes > li > div {
+  padding: 6px;
+  border-left: 1px solid lightgray !important;
+}
+
+.wd-quizzes > li > ul > li {
+  padding: 5px;
+  border-top: 1px solid lightgray !important;
+  border-left: 3px solid green;
+}
+
+.fa-check-circle {
+  color: green;
+}
+
+.fa-plus {
+  color: grey;
+}
+
+.fa-ellipsis-v {
+  color: grey;
+}
+
+.publish-dropdown {
+  background-color: whitesmoke;
+  border: none;
+  border-radius: 0.3em;
+  border-collapse: separate;
+  display: flex;
+  align-items: center;
+}
