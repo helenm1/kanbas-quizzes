@@ -16,6 +16,7 @@ import Home from "./Home";
 import Assignments from "./Assignments";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import QuizDetails from "./Quizzes/QuizDetails";
 
 function Courses() {
   const { courseId } = useParams();
@@ -58,6 +59,7 @@ function Courses() {
             />
             <Route path="Grades" element={<h1>Grades</h1>} />
             <Route path="Quizzes" element={<Quizzes />} />
+            <Route path="Quizzes/:quizId" element={<QuizDetails />} />
           </Routes>
         </div>
       </div>
