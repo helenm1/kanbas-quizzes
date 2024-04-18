@@ -1,9 +1,8 @@
-import React from "react";
-
+import QuizList from "./QuizList";
 function Quizzes() {
   return (
-    <div>
-      <h1>Quizzes</h1>
+    <div className="mt-4">
+      <QuizList />
     </div>
   );
 }

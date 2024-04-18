@@ -40,11 +40,13 @@
   color: grey;
 }
 
-.publish-dropdown {
-  background-color: whitesmoke;
-  border: none;
+.form-control {
+  /* border: none; */
   border-radius: 0.3em;
   border-collapse: separate;
   display: flex;
   align-items: center;
+  width: 12em;
+  margin-left: 0em;
+  margin-right: auto;
 }
