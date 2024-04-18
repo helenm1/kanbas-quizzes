@@ -11,10 +11,12 @@ import { HiMiniBars3 } from "react-icons/hi2";
 import { FaChevronRight } from "react-icons/fa";
 import CourseNavigation from "./Navigation";
 import Modules from "./Modules";
+import Quizzes from "./Quizzes";
 import Home from "./Home";
 import Assignments from "./Assignments";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import QuizDetails from "./Quizzes/QuizDetails";
 
 function Courses() {
   const { courseId } = useParams();
@@ -56,6 +58,8 @@ function Courses() {
               element={<h1>Assignment Editor</h1>}
             />
             <Route path="Grades" element={<h1>Grades</h1>} />
+            <Route path="Quizzes" element={<Quizzes />} />
+            <Route path="Quizzes/:quizId" element={<QuizDetails />} />
           </Routes>
         </div>
       </div>
