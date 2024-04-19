@@ -43,7 +43,7 @@ function QuizDetails() {
 
   const navigate = useNavigate();
   const goToEditor = () => {
-    navigate(`Editor`);
+    navigate(`Editor/EditDetails`);
   };
 
   return (
