@@ -32,11 +32,6 @@ function QuizDetails() {
     dispatch(setQuiz(quiz));
   };
 
-  // const fetchAllQuizzes = async () => {
-  //   const quizzes = await quizzesClient.findQuizzesForCourse(validatedCourseId);
-  //   dispatch(setQuizzes(quizzes));
-  // };
-
   useEffect(() => {
     fetchQuiz();
     quizzesClient
@@ -54,9 +49,59 @@ function QuizDetails() {
           <FaEllipsisV />
         </button>
       </div>
-      <hr />
 
-      <h1>Quiz details for {quiz.name}</h1>
+      <hr />
+      <h1>{quiz.name}</h1>
+      <div>
+        <p>
+          <strong>Quiz Type </strong>
+          {quiz.quizType}
+        </p>
+        <p>
+          <strong>Points </strong>
+          {quiz.points}
+        </p>
+        <p>
+          <strong>Assignment Group </strong>
+          {quiz.assignmentGroup}
+        </p>
+        <p>
+          <strong>Shuffle Answers </strong>
+          {quiz.shuffleAnswers}
+        </p>
+        <p>
+          <strong>Time Limit </strong>
+          {quiz.timeLimit} Minutes
+        </p>
+        <p>
+          <strong>View Responses </strong>
+          Always
+        </p>
+        <p>
+          <strong>Show Correct Answers </strong>
+          {quiz.showCorrectAnswers}
+        </p>
+        <p>
+          <strong>One Question at a Time </strong>
+          {quiz.oneQuestionAtATime}
+        </p>
+        <p>
+          <strong>Require Respondus LockDown Browser </strong>
+          No
+        </p>
+        <p>
+          <strong>Required to View Quiz Results </strong>
+          No
+        </p>
+        <p>
+          <strong>Webcam Required </strong>
+          {quiz.webcamRequired}
+        </p>
+        <p>
+          <strong>Lock Questions After Answering </strong>
+          {quiz.lockQuestionsAfterAnswering}
+        </p>
+      </div>
     </>
   );
 }
