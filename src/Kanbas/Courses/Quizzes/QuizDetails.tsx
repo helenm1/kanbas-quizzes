@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import { FaEllipsisV, FaCheckCircle, FaRocket } from "react-icons/fa";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, Route, Routes } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import {
   addQuiz,
@@ -14,6 +14,8 @@ import { KanbasState } from "../../store";
 import * as quizzesClient from "./client";
 import { Quiz } from "./client";
 import { Link } from "react-router-dom";
+import EditDetails from "./Editor/EditDetails";
+import EditQuestions from "./Editor/EditQuestions";
 
 function QuizDetails() {
   const { courseId } = useParams();
@@ -39,12 +41,19 @@ function QuizDetails() {
       .then((quizzes) => dispatch(setQuizzes(quizzes)));
   }, [validatedCourseId]);
 
+  const navigate = useNavigate();
+  const goToEditor = () => {
+    navigate(`Editor`);
+  };
+
   return (
     <>
       <div className="d-flex justify-content-end mt-2">
         <button className="btn btn-success">Published</button>
         <button className="btn btn-light">Preview</button>
-        <button className="btn btn-light">Edit</button>
+        <button className="btn btn-light" onClick={goToEditor}>
+          Edit
+        </button>
         <button className="btn btn-light">
           <FaEllipsisV />
         </button>
