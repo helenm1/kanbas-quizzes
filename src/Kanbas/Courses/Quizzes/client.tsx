@@ -7,6 +7,7 @@ export interface Quiz {
   _id?: string;
   name: string;
   description: string;
+  quizType: string;
   availability: string;
   published: boolean;
   dueDate: string;

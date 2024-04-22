@@ -5,10 +5,11 @@ import { useParams } from "react-router-dom";
 import * as quizzesClient from "../../client";
 import { useDispatch, useSelector } from "react-redux";
 import { KanbasState } from "../../../../store";
-import { setQuiz, setQuizzes } from "../../reducer";
+import { setQuiz, setQuizzes, updateQuiz } from "../../reducer";
 import { useEffect, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import "./index.css";
+import { Quiz } from "../../client";
 
 export default function EditDetails() {
   const { courseId, quizId } = useParams();
@@ -26,6 +27,13 @@ export default function EditDetails() {
     console.log("quiz in fetch quiz", quiz);
     dispatch(setQuiz(quiz));
   };
+
+  const handleUpdateQuiz = async (quiz: Quiz) => {
+    await quizzesClient.updateQuiz(validatedCourseId, quiz);
+    dispatch(updateQuiz(quiz));
+    fetchQuiz();
+  };
+
   useEffect(() => {
     fetchQuiz();
     quizzesClient
@@ -59,9 +67,7 @@ export default function EditDetails() {
       <br />
       <input
         value={quiz.name}
-        // onChange={(e) =>
-        //   dispatch(setModule({ ...module, name: e.target.value }))
-        // }
+        onChange={(e) => dispatch(setQuiz({ ...quiz, name: e.target.value }))}
         className="form-control"
         placeholder="Quiz Name"
       />
@@ -72,11 +78,13 @@ export default function EditDetails() {
         onEditorChange={(newValue, editor) => {
           setValue(newValue);
           setText(editor.getContent({ format: "text" }));
+          dispatch(setQuiz({ ...quiz, description: newValue }));
         }}
         onInit={(evt, editor) => {
           setText(editor.getContent({ format: "text" }));
         }}
-        initialValue={quiz.description}
+        // initialValue={quiz.description}
+        value={quiz.description}
         init={{
           plugins:
             "a11ychecker advcode advlist advtable anchor autocorrect autolink autoresize autosave casechange charmap checklist code codesample directionality editimage emoticons export footnotes formatpainter fullscreen help image importcss inlinecss insertdatetime link linkchecker lists media mediaembed mentions mergetags nonbreaking pagebreak pageembed permanentpen powerpaste preview quickbars save searchreplace table tableofcontents template tinydrive tinymcespellchecker typography visualblocks visualchars wordcount",
@@ -85,23 +93,33 @@ export default function EditDetails() {
       <br />
       <div className="d-flex align-items-center">
         <p className="me-2">Quiz Type</p>
-        <select className="form-control">
-          <option value={quiz.type}>{quiz.type}</option>
-          <option value="gradedQuiz">Graded Quiz</option>
-          <option value="practiceQuiz">Practice Quiz</option>
-          <option value="gradedSurvey">Graded Survey</option>
-          <option value="unGradedSurvey">Ungraded Survey</option>
+        <select
+          className="form-control"
+          value={quiz.quizType}
+          onChange={(e) =>
+            dispatch(setQuiz({ ...quiz, quizType: e.target.value }))
+          }
+        >
+          <option value="GRADED_QUIZ">Graded Quiz</option>
+          <option value="PRACTICE_QUIZ">Practice Quiz</option>
+          <option value="GRADED_SURVEY">Graded Survey</option>
+          <option value="UNGRADED_SURVEY">Ungraded Survey</option>
         </select>
       </div>
       <br />
       <div className="d-flex align-items-center">
         <p className="me-2">Assignment Group</p>
-        <select className="form-control">
-          <option value={quiz.assignmentGroup}>{quiz.assignmentGroup}</option>
-          <option value="quizzes">Quizzes</option>
-          <option value="exams">Exams</option>
-          <option value="assignments">Assignments</option>
-          <option value="project">Project</option>
+        <select
+          className="form-control"
+          value={quiz.assignmentGroup}
+          onChange={(e) =>
+            dispatch(setQuiz({ ...quiz, assignmentGroup: e.target.value }))
+          }
+        >
+          <option value="QUIZZES">Quizzes</option>
+          <option value="EXAMS">Exams</option>
+          <option value="ASSIGNMENTS">Assignments</option>
+          <option value="PROJECT">Project</option>
         </select>
       </div>
       <br />
@@ -115,6 +133,9 @@ export default function EditDetails() {
             type="checkbox"
             id="checkbox-shuffle-answers"
             checked={quiz.shuffleAnswers}
+            onChange={(e) =>
+              dispatch(setQuiz({ ...quiz, shuffleAnswers: e.target.checked }))
+            }
           />
           <label
             className="form-check-label"
@@ -131,6 +152,9 @@ export default function EditDetails() {
               type="checkbox"
               id="checkbox-timeLimit"
               checked={quiz.timeLimit}
+              onChange={(e) =>
+                dispatch(setQuiz({ ...quiz, timeLimit: e.target.checked }))
+              }
             />
             <label className="form-check-label" htmlFor="checkbox-timeLimit">
               Time Limit
@@ -141,6 +165,9 @@ export default function EditDetails() {
             className="form-control"
             style={{ width: "100px", marginLeft: "30px", marginRight: "15px" }}
             value={quiz.timeLimit}
+            onChange={(e) =>
+              dispatch(setQuiz({ ...quiz, timeLimit: e.target.value }))
+            }
           />
           <label style={{ marginLeft: "5px", marginRight: "auto" }}>
             Minutes
@@ -153,6 +180,9 @@ export default function EditDetails() {
             type="checkbox"
             id="checkbox-allow-multiple-attempts"
             checked={quiz.multipleAttemps}
+            onChange={(e) =>
+              dispatch(setQuiz({ ...quiz, multipleAttemps: e.target.checked }))
+            }
           />
           <label
             className="form-check-label"
@@ -168,6 +198,11 @@ export default function EditDetails() {
             type="checkbox"
             id="checkbox-show-correct-answers"
             checked={quiz.showCorrectAnswers}
+            onChange={(e) =>
+              dispatch(
+                setQuiz({ ...quiz, showCorrectAnswers: e.target.checked })
+              )
+            }
           />
           <label
             className="form-check-label"
@@ -183,6 +218,9 @@ export default function EditDetails() {
             type="text"
             className="form-control"
             value={quiz.accessCode}
+            onChange={(e) =>
+              dispatch(setQuiz({ ...quiz, accessCode: e.target.value }))
+            }
           ></input>
         </div>
         <br />
@@ -192,6 +230,11 @@ export default function EditDetails() {
             type="checkbox"
             id="checkbox-one-q-at-a-time"
             checked={quiz.oneQuestionAtATime}
+            onChange={(e) =>
+              dispatch(
+                setQuiz({ ...quiz, oneQuestionAtATime: e.target.checked })
+              )
+            }
           />
           <label
             className="form-check-label"
@@ -207,6 +250,9 @@ export default function EditDetails() {
             type="checkbox"
             id="checkbox-webcam-required"
             checked={quiz.webcamRequired}
+            onChange={(e) =>
+              dispatch(setQuiz({ ...quiz, webcamRequired: e.target.checked }))
+            }
           />
           <label
             className="form-check-label"
@@ -222,6 +268,14 @@ export default function EditDetails() {
             type="checkbox"
             id="checkbox-lock-questions-after-answering"
             checked={quiz.lockQuestionsAfterAnswering}
+            onChange={(e) =>
+              dispatch(
+                setQuiz({
+                  ...quiz,
+                  lockQuestionsAfterAnswering: e.target.checked,
+                })
+              )
+            }
           />
           <label
             className="form-check-label"
@@ -241,7 +295,7 @@ export default function EditDetails() {
               value={quiz.dueDate}
               className="form-control"
               type="date"
-              // onChange={(e) => setCourse({ ...course, startDate: e.target.value })}
+              onChange={(e) => setQuiz({ ...quiz, dueDate: e.target.value })}
             />
             <br />
             <div className="d-flex">
@@ -253,7 +307,9 @@ export default function EditDetails() {
                   value={quiz.avaliableDate}
                   className="form-control"
                   type="date"
-                  // onChange={(e) => setCourse({ ...course, startDate: e.target.value })}
+                  onChange={(e) =>
+                    setQuiz({ ...quiz, avaliableDate: e.target.value })
+                  }
                 />
               </div>
               <div>
@@ -264,12 +320,29 @@ export default function EditDetails() {
                   value={quiz.untilDate}
                   className="form-control"
                   type="date"
-                  // onChange={(e) => setCourse({ ...course, startDate: e.target.value })}
+                  onChange={(e) =>
+                    setQuiz({ ...quiz, untilDate: e.target.value })
+                  }
                 />
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <br />
+      <hr />
+      <div className="d-flex justify-content-end mt-2">
+        <button className="btn btn-light">Cancel</button>
+        <button className="btn btn-light">Save & Publish</button>
+        <button
+          className="btn btn-danger"
+          onClick={(event) => {
+            event.preventDefault();
+            handleUpdateQuiz(quiz);
+          }}
+        >
+          Save
+        </button>
       </div>
     </div>
   );
