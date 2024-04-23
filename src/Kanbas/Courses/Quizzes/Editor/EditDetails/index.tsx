@@ -345,6 +345,12 @@ export default function EditDetails() {
           className="btn btn-light"
           onClick={(event) => {
             event.preventDefault();
+            dispatch(
+              setQuiz({
+                ...quiz,
+                published: true,
+              })
+            );
             handleUpdateQuiz(quiz);
             goToQuizList();
           }}
