@@ -101,7 +101,9 @@ export default function EditQuestion(props: any) {
         <option value="FILL_IN">Fill In</option>
       </select>
       <br />
-      {question.questionType === "TRUE_FALSE" && <TFEditor />}
+      {question.questionType === "TRUE_FALSE" && (
+        <TFEditor question={question} />
+      )}
       {question.questionType === "MULTIPLE_CHOICE" && <MCEditor />}
       {question.questionType === "FILL_IN" && <FIEditor />}
       <button

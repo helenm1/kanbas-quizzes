@@ -7,7 +7,7 @@ import { KanbasState } from "../../../../../store";
 import { Question } from "../client";
 import { useParams } from "react-router-dom";
 
-function TFEditor() {
+function TFEditor(props: any) {
   const { courseId } = useParams();
   const { quizId } = useParams();
   // console.log("params:", useParams());
@@ -15,25 +15,29 @@ function TFEditor() {
   const validatedQuizId = quizId ? quizId : "";
 
   const validatedCourseId = courseId ? courseId : "";
+  const validatedQuestionId = props.question._id ?? "";
 
   const [text, setText] = useState("");
   const [value, setValue] = useState("<p>TinyMCE editor text</p>");
   const dispatch = useDispatch();
 
-  let question = useSelector(
-    (state: KanbasState) => state.questionsReducer.question
-  );
+  // let question = useSelector(
+  //   (state: KanbasState) => state.questionsReducer.question
+  // );
 
   const fetchQuestion = async () => {
     await questionsClient.findQuestionById(
       validatedCourseId,
       validatedQuizId,
-      question._id
+      validatedQuestionId
     );
-    dispatch(setQuestion(question));
+    // dispatch(setQuestion(question));
   };
 
-  const validatedQuestionId = question.id ? question.id : "";
+  const [question, setQuestion] = useState(props.question);
+  console.log("questiontext", question.questionText);
+
+  // const validatedQuestionId = question.id ? question.id : "";
 
   const handleUpdateQuestion = async (question: Question) => {
     // console.log("Question", question);
@@ -52,7 +56,8 @@ function TFEditor() {
 
   useEffect(() => {
     fetchQuestion();
-  }, []);
+    setQuestion(props.question);
+  }, [props.question]);
 
   return (
     <div>
@@ -66,13 +71,13 @@ function TFEditor() {
         onEditorChange={(newValue, editor) => {
           setValue(newValue);
           setText(editor.getContent({ format: "text" }));
-          dispatch(setQuestion({ ...question, questionText: newValue }));
+          // dispatch(setQuestion({ ...question, questionText: newValue }));
         }}
         onInit={(evt, editor) => {
           setText(editor.getContent({ format: "text" }));
         }}
         initialValue={question.questionText}
-        value={question.questionText}
+        // value={question.questionText}
         init={{
           plugins:
             "a11ychecker advcode advlist advtable anchor autocorrect autolink autoresize autosave casechange charmap checklist code codesample directionality editimage emoticons export footnotes formatpainter fullscreen help image importcss inlinecss insertdatetime link linkchecker lists media mediaembed mentions mergetags nonbreaking pagebreak pageembed permanentpen powerpaste preview quickbars save searchreplace table tableofcontents template tinydrive tinymcespellchecker typography visualblocks visualchars wordcount",
