@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import EditQuestions from "../EditQuestions";
 import { useParams } from "react-router-dom";
@@ -19,12 +19,10 @@ export default function EditDetails() {
 
   let quiz = useSelector((state: KanbasState) => state.quizzesReducer.quiz);
 
-  // console.log("quiz before fetch quiz details", quiz);
   const dispatch = useDispatch();
 
   const fetchQuiz = async () => {
     const quiz = await quizzesClient.fetchQuizById(validatedCourseId, quizId);
-    console.log("quiz in fetch quiz", quiz);
     dispatch(setQuiz(quiz));
   };
 
@@ -32,6 +30,14 @@ export default function EditDetails() {
     await quizzesClient.updateQuiz(validatedCourseId, quiz);
     dispatch(updateQuiz(quiz));
     fetchQuiz();
+  };
+
+  const navigate = useNavigate();
+  const goToQuizDetails = () => {
+    navigate(`../Quizzes/${quizId}`);
+  };
+  const goToQuizList = () => {
+    navigate(`../Quizzes`);
   };
 
   useEffect(() => {
@@ -332,8 +338,19 @@ export default function EditDetails() {
       <br />
       <hr />
       <div className="d-flex justify-content-end mt-2">
-        <button className="btn btn-light">Cancel</button>
-        <button className="btn btn-light">Save & Publish</button>
+        <button className="btn btn-light" onClick={goToQuizDetails}>
+          Cancel
+        </button>
+        <button
+          className="btn btn-light"
+          onClick={(event) => {
+            event.preventDefault();
+            handleUpdateQuiz(quiz);
+            goToQuizList();
+          }}
+        >
+          Save & Publish
+        </button>
         <button
           className="btn btn-danger"
           onClick={(event) => {
@@ -344,6 +361,7 @@ export default function EditDetails() {
           Save
         </button>
       </div>
+      <br />
     </div>
   );
 }
