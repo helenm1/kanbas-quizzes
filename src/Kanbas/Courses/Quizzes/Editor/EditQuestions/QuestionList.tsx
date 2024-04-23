@@ -115,6 +115,7 @@ function QuestionList() {
           .filter((question) => question.quizId === quizId)
           .map((question) => (
             <li>
+              <h6>{question.questionTitle}</h6>
               {editingQuestionIds.includes(question._id) ? (
                 <EditQuestion question={question} />
               ) : (

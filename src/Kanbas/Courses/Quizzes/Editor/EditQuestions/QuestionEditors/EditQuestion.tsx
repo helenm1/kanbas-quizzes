@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import FIEditor from "./FIEditor";
 import MCEditor from "./MCEditor";
@@ -8,6 +8,7 @@ import * as questionsClient from "../client";
 import { setQuestion, updateQuestion } from "../reducer";
 import { setQuiz } from "../../../reducer";
 import React, { useState, useEffect } from "react";
+import { KanbasState } from "../../../../../store";
 
 export default function EditQuestion(props: any) {
   const { courseId, quizId } = useParams();
@@ -35,7 +36,8 @@ export default function EditQuestion(props: any) {
       validatedQuizId,
       validatedQuestionId
     );
-    console.log("question in fetchQuestion", question);
+    // console.log("validated questionID", validatedQuestionId);
+    // console.log("question in fetchQuestion", question);
     setQuestion(updatedQuestion);
   };
 
@@ -50,15 +52,15 @@ export default function EditQuestion(props: any) {
   //   fetchQuestion();
   // };
 
-  const handleUpdateQuestion = async () => {
-    const updatedQuestion = await questionsClient.updateQuestion(
+  const handleUpdateQuestion = async (question: Question) => {
+    await questionsClient.updateQuestion(
       validatedCourseId,
       validatedQuizId,
       validatedQuestionId,
       question
     );
-    dispatch(updateQuestion(updatedQuestion));
-    fetchQuestion(updatedQuestion);
+    dispatch(updateQuestion(question));
+    fetchQuestion(question);
   };
 
   return (
@@ -87,7 +89,7 @@ export default function EditQuestion(props: any) {
       {question.questionType === "FILL_IN" && <FIEditor />}
       <button
         className="btn btn-primary"
-        onClick={() => handleUpdateQuestion()}
+        onClick={() => handleUpdateQuestion(question)}
       >
         Update Question
       </button>
