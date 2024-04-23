@@ -45,12 +45,18 @@ function QuizDetails() {
   const goToEditor = () => {
     navigate(`Editor/EditDetails`);
   };
+  const goToPreview = () => {
+    console.log("going to preview ");
+    navigate(`Preview`);
+  };
 
   return (
     <>
       <div className="d-flex justify-content-end mt-2">
         <button className="btn btn-success">Published</button>
-        <button className="btn btn-light">Preview</button>
+        <button className="btn btn-light" onClick={goToPreview}>
+          Preview
+        </button>
         <button className="btn btn-light" onClick={goToEditor}>
           Edit
         </button>
