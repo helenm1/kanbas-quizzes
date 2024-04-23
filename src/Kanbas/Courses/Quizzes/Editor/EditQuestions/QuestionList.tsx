@@ -10,8 +10,11 @@ import {
   setQuestion,
   setQuestions,
 } from "./reducer";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Question } from "./client";
+
+import ViewQuestion from "./ViewQuestion";
+import EditQuestion from "./QuestionEditors/EditQuestion";
 
 function QuestionList() {
   const { courseId, quizId } = useParams();
@@ -23,6 +26,12 @@ function QuestionList() {
   const questionList = useSelector(
     (state: KanbasState) => state.questionsReducer.questions
   );
+
+  const [editingQuestionIds, setEditingQuestionIds] = useState<string[]>([]);
+
+  const toEditMode = (id: string) => {
+    setEditingQuestionIds([id]);
+  };
 
   console.log("questionlist after questionlist init", questionList);
 
@@ -69,6 +78,36 @@ function QuestionList() {
       .then((questions) => dispatch(setQuestions(questions)));
   }, [validatedCourseId, validatedQuizId]);
 
+  // return (
+  //   <div>
+  //     <ul className="list-group">
+  //       {questionList
+  //         .filter((question) => question.quizId === quizId)
+  //         .map((question) => (
+  //           <li>
+  //             <ViewQuestion question={question} />
+
+  //             <button className="btn btn-primary">Edit</button>
+  //             <button
+  //               className="btn btn-danger"
+  //               onClick={(event) => {
+  //                 event.preventDefault();
+  //                 console.log("question in onclick", question);
+  //                 console.log("questionList before delete", questionList);
+
+  //                 deleteQuestion(question);
+  //                 console.log("questionList after delete", questionList);
+  //                 // console.log(KanbasState.questionsReducer.questions);
+  //               }}
+  //             >
+  //               Delete
+  //             </button>
+  //             <hr />
+  //           </li>
+  //         ))}
+  //     </ul>
+  //   </div>
+  // );
   return (
     <div>
       <ul className="list-group">
@@ -76,35 +115,18 @@ function QuestionList() {
           .filter((question) => question.quizId === quizId)
           .map((question) => (
             <li>
-              <div>
-                <h4>
-                  <strong>{question.questionText}</strong>
-                </h4>
-                <p>Points: {question.points}</p>
-                {question.questionType === "TRUE_FALSE" && (
-                  <p>
-                    Answer: <strong>{question.tfAnswer.toString()}</strong>
-                  </p>
-                )}
-                {question.questionType === "MULTIPLE_CHOICE" && (
-                  <div>
-                    {question.mcAnswers.map((answer: any) => (
-                      <div>
-                        <p>
-                          Answer: <strong>{answer.answer}</strong>
-                        </p>
-                        <p>Correct: {answer.correct.toString()}</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                {question.questionType === "FILL_IN" && (
-                  <p>
-                    Answer: <strong>{question.fillInAnswers}</strong>
-                  </p>
-                )}
-              </div>
-              <button className="btn btn-primary">Edit</button>
+              {editingQuestionIds.includes(question._id) ? (
+                <EditQuestion question={question} />
+              ) : (
+                <ViewQuestion question={question} />
+              )}
+
+              <button
+                className="btn btn-primary"
+                onClick={() => toEditMode(question._id)}
+              >
+                Edit
+              </button>
               <button
                 className="btn btn-danger"
                 onClick={(event) => {
