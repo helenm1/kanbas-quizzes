@@ -56,7 +56,6 @@ function TFEditor() {
 
   return (
     <div>
-      <h3>True/False question</h3>
       <p>
         Enter your question text, then select if True or False is the correct
         answer.

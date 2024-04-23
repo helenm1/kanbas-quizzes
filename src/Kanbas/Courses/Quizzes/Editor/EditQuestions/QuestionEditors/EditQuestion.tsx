@@ -65,14 +65,30 @@ export default function EditQuestion(props: any) {
 
   return (
     <div>
-      <input
-        type="text"
-        className="form-control"
-        value={question.questionTitle}
-        onChange={(e) =>
-          setQuestion({ ...question, questionTitle: e.target.value })
-        }
-      />
+      <div className="d-flex justify-content-between">
+        <input
+          type="text"
+          className="form-control"
+          value={question.questionTitle}
+          onChange={(e) =>
+            setQuestion({ ...question, questionTitle: e.target.value })
+          }
+        />
+        <div className="d-flex align-items-center">
+          <p className="me-2">
+            <strong>pts:</strong>
+          </p>
+          <input
+            type="text"
+            className="form-control"
+            value={question.points}
+            onChange={(e) =>
+              setQuestion({ ...question, points: e.target.value })
+            }
+          />
+        </div>
+      </div>
+      <br />
       <select
         className="form-control"
         value={question.questionType}
@@ -84,6 +100,7 @@ export default function EditQuestion(props: any) {
         <option value="TRUE_FALSE">True False</option>
         <option value="FILL_IN">Fill In</option>
       </select>
+      <br />
       {question.questionType === "TRUE_FALSE" && <TFEditor />}
       {question.questionType === "MULTIPLE_CHOICE" && <MCEditor />}
       {question.questionType === "FILL_IN" && <FIEditor />}
