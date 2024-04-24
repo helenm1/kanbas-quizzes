@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
-import { FaEllipsisV, FaCheckCircle, FaRocket } from "react-icons/fa";
+import { FaEllipsisV, FaCheckCircle, FaRocket, FaBan } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -56,27 +56,48 @@ function QuizList() {
         {quizList
           .filter((quiz) => quiz.course === courseId)
           .map((quiz) => (
-            <Link
-              to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`}
-              className="text-decoration-none"
-              key={quiz._id}
-            >
-              <li className="list-group-item list-group-item-action">
-                <div>
+            <li className="list-group-item list-group-item-action">
+              <div>
+                <Link
+                  to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`}
+                  className="text-decoration-none"
+                  key={quiz._id}
+                >
                   <FaRocket className="me-2 fa-rocket" />
                   {quiz.name}
-                  <span className="float-end">
-                    <FaCheckCircle className="text-success" />
-                    <FaEllipsisV className="ms-2" />
-                  </span>
-                  <p>
-                    {" "}
-                    {quiz.availability} | {quiz.dueDate} | {quiz.points} |{" "}
-                    {`${quiz.numQuestions} Questions`}
-                  </p>
-                </div>
-              </li>
-            </Link>
+                </Link>
+                <span className="float-end">
+                  {quiz.published ? (
+                    <FaCheckCircle
+                      className="text-success"
+                      onClick={() => {
+                        quizzesClient.unpublishQuiz(validatedCourseId, quiz);
+                        window.location.reload();
+                      }}
+                    />
+                  ) : (
+                    <FaBan
+                      className="text-danger"
+                      onClick={() => {
+                        quizzesClient.publishQuiz(
+                          validatedCourseId,
+                          quiz,
+                          quiz._id
+                        );
+                        window.location.reload();
+                      }}
+                    />
+                  )}
+                  <FaEllipsisV className="ms-2" />
+                </span>
+                <p>
+                  {" "}
+                  {quiz.availability} | {quiz.dueDate} | {quiz.points} |{" "}
+                  {`${quiz.questions.length} Questions`}
+                </p>
+              </div>
+            </li>
+            // </Link>
           ))}
       </ul>
     </>

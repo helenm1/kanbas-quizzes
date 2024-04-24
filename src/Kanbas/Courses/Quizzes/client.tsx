@@ -99,3 +99,10 @@ export const publishQuiz = async (
   console.log("response data from publish", response.data);
   return response.data;
 };
+
+export const unpublishQuiz = async (courseId: string, quiz: Quiz) => {
+  const response = await axios.put(
+    `${generateQuizzesApi(courseId)}/${quiz._id}/unpublish`
+  );
+  return response.data;
+};
