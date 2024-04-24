@@ -53,7 +53,27 @@ function QuizDetails() {
   return (
     <>
       <div className="d-flex justify-content-end mt-2">
-        <button className="btn btn-success">Published</button>
+        {quiz.published ? (
+          <button
+            className="btn btn-success"
+            onClick={() => {
+              quizzesClient.unpublishQuiz(validatedCourseId, quiz);
+              window.location.reload();
+            }}
+          >
+            Published
+          </button>
+        ) : (
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              quizzesClient.publishQuiz(validatedCourseId, quiz, true);
+              window.location.reload();
+            }}
+          >
+            Unpublished
+          </button>
+        )}
         <button className="btn btn-light" onClick={goToPreview}>
           Preview
         </button>
