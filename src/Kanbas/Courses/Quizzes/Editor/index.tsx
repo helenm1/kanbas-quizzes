@@ -18,7 +18,7 @@ export type Question = {
 
 export type Quiz = {
   _id: string;
-  isPublished: boolean;
+  published: boolean;
   questions: Question[];
   title: string;
   description: string;

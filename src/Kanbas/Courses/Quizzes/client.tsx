@@ -28,7 +28,7 @@ export type Question = {
 
 export type Quiz = {
   _id: string;
-  isPublished: boolean;
+  published: boolean;
   questions: Question[];
   title: string;
   description: string;
@@ -83,5 +83,19 @@ export const updateQuiz = async (courseId: string, quiz: Quiz) => {
     `${generateQuizzesApi(courseId)}/${quiz._id}`,
     quiz
   );
+  return response.data;
+};
+
+export const publishQuiz = async (
+  courseId: string,
+  quiz: Quiz,
+  isPublished: boolean
+) => {
+  console.log("quiz in publish", quiz);
+  const response = await axios.put(
+    `${generateQuizzesApi(courseId)}/${quiz._id}/publish`,
+    { isPublished }
+  );
+  console.log("response data from publish", response.data);
   return response.data;
 };

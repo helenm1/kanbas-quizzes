@@ -68,13 +68,16 @@ function QuestionsTab() {
   };
 
   const handleSave = async (publish?: boolean) => {
+    publish = publish ?? false;
     if (quiz) {
       const points = questions.reduce((acc, curr) => acc + curr.points, 0);
-      let newQuiz = { ...quiz, questions, points };
+      let newQuiz = { ...quiz, questions, points, published: publish };
       if (publish) {
-        newQuiz = { ...newQuiz, isPublished: true };
+        newQuiz = { ...newQuiz, published: true };
       }
+      await quizClient.publishQuiz(validatedCourseId, newQuiz, publish);
       await quizClient.updateQuiz(validatedCourseId, newQuiz);
+
       setQuiz(newQuiz);
     }
   };
@@ -88,13 +91,15 @@ function QuestionsTab() {
   };
 
   console.log("questions", questions);
+  console.log("quiz before rendering", quiz);
+  console.log("quiz published before rendering", quiz?.published);
 
   return (
     <div className="flex-fill">
       <div className="question-editor-header">
         <div className="points-text">Points {quiz ? quiz.points : "0"} </div>
         <div>
-          {quiz && quiz.isPublished ? (
+          {quiz && quiz.published ? (
             <>
               <FaCheck style={{ alignSelf: "center", color: "green" }} />{" "}
               Published
