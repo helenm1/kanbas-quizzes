@@ -1,0 +1,50 @@
+.question-editor-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  vertical-align: middle;
+  gap: 1.5em;
+}
+
+.points-text {
+  font-size: 1.2em;
+}
+
+.question-editor-buttons-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.question-editor-buttons-footer > button {
+  margin: 1em;
+}
+
+.question-editor-publish-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.5em;
+}
+
+.question-editor-publish-footer > div {
+  gap: 1em;
+}
+
+.questions {
+  margin: 5%;
+  display: flex;
+  flex-direction: column;
+}
+
+.delete-question {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1em;
+}
