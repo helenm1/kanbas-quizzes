@@ -28,23 +28,24 @@ export default function Preview() {
     dispatch(setQuiz(quiz));
   };
 
-  const fetchAllQuestions = async () => {
-    const fetchedQuestions = await quizzesClient.fetchQuestionsByQuiz(
-      validatedCourseId,
-      quizId
-    );
-    return fetchedQuestions; // Return the fetched questions
-  };
+  // const fetchAllQuestions = async () => {
+  //   const fetchedQuestions = await quizzesClient.fetchQuestionsByQuiz(
+  //     validatedCourseId,
+  //     quizId
+  //   );
+  //   return fetchedQuestions; // Return the fetched questions
+  // };
 
   useEffect(() => {
     fetchQuiz();
-    fetchAllQuestions();
+    // fetchAllQuestions();
     quizzesClient
       .fetchQuizById(validatedCourseId, quizId)
       .then((quizzes) => dispatch(setQuizzes(quizzes)));
     async function getQuestions() {
-      const fetchedQuestions = await fetchAllQuestions();
-      setQuestions(fetchedQuestions);
+      // const fetchedQuestions = await fetchAllQuestions();
+      // setQuestions(fetchedQuestions);
+      setQuestions(quiz.questions);
     }
     getQuestions();
   }, [validatedCourseId]);
@@ -62,26 +63,28 @@ export default function Preview() {
       <hr />
 
       <div className="d-flex">
-        <div className="w-50">
+        <div className="w-75">
           {selectedQuestion && (
-            <div>
-              <h1>{selectedQuestion.title}</h1>
-              <h5>{selectedQuestion.description}</h5>
+            <div className="p-3 border">
+              <div className="question-title">
+                <h5>{selectedQuestion.title}</h5>
+              </div>
+              <hr />
+              <p>{selectedQuestion.description}</p>
               {/* Render other details of the selected question */}
             </div>
           )}
         </div>
-        <div className="w-50">
+        <div className="w-25">
           {questions.map((question, index) => (
             <button
-              className="btn btn-danger"
+              className="question-button"
               key={index}
               onClick={() => {
-                console.log(question);
                 setSelectedQuestion(question);
               }}
             >
-              <h3>{question.title} </h3>
+              <p>{question.title} </p>
             </button>
           ))}
         </div>
