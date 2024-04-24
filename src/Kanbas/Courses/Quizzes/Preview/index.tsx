@@ -66,8 +66,9 @@ export default function Preview() {
         <div className="w-75">
           {selectedQuestion && (
             <div className="p-3 border">
-              <div className="question-title">
+              <div className="question-title d-flex justify-content-between">
                 <h5>{selectedQuestion.title}</h5>
+                <h6>{selectedQuestion.points} pts</h6>
               </div>
               <hr />
               <p>{selectedQuestion.description}</p>
