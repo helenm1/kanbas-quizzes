@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import { FaEllipsisV, FaCheckCircle, FaRocket, FaBan } from "react-icons/fa";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import {
   addQuiz,
@@ -22,6 +22,8 @@ function QuizList() {
   const quizList = useSelector(
     (state: KanbasState) => state.quizzesReducer.quizzes
   );
+  const { pathname } = useLocation();
+  // const newPath = pathname.substring(0, pathname.lastIndexOf("/"));
 
   const dispatch = useDispatch();
 
@@ -45,7 +47,32 @@ function QuizList() {
           className="form-control"
           placeholder="Search for Quiz"
         />
-        <button className="btn btn-danger">+ Quiz</button>
+        <button
+          className="btn btn-danger"
+          onClick={async () => {
+            await quizzesClient.createQuiz(validatedCourseId, {
+              name: "New Quiz",
+              dueDate: Date.now(),
+              availableDate: Date.now(),
+              untilDate: Date.now(),
+              course: validatedCourseId,
+            });
+            fetchAllQuizzes();
+            window.location.replace(
+              "#" +
+                pathname +
+                `/${quizList[quizList.length - 1]._id}/editor/editdetails`
+            );
+            // window.location.replace(
+            //   `/Kanbas/Courses/${courseId}/Quizzes/${
+            //     quizList[quizList.length - 1]._id
+            //   }`
+            // );
+            // window.location.reload();
+          }}
+        >
+          + Quiz
+        </button>
         <button className="btn btn-light">
           <FaEllipsisV />
         </button>
@@ -97,7 +124,6 @@ function QuizList() {
                 </p>
               </div>
             </li>
-            // </Link>
           ))}
       </ul>
     </>
