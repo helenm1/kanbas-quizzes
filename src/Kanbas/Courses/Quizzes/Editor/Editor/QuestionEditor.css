@@ -1,0 +1,87 @@
+.points {
+  margin-left: 5px;
+}
+.points-container {
+  display: flex;
+  width: 30%;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  text-align: center;
+  margin-right: 0.5em;
+  font-weight: bold;
+}
+
+.question-container {
+  margin: 0.5em;
+  font-weight: bold;
+  padding: 1em;
+}
+
+.question-desc {
+  padding: 1em 0;
+}
+
+.create-answer {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  padding: 1em 0;
+}
+
+.create-answer > button {
+  color: red;
+  border: none;
+}
+
+.create-answer > button:hover {
+  color: darkred;
+}
+
+.answers-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1em;
+}
+
+.answers-container > textarea {
+  margin: 2em 0;
+}
+
+.option {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  margin: 1em 0;
+  font-weight: normal;
+}
+
+.question-buttons-container {
+  display: flex;
+  flex-direction: row;
+  margin: 1em;
+  align-content: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.question-buttons-container > button {
+  margin: 0 0.5em;
+}
+
+.saved-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25em;
+}
+
+.option > button {
+  border: none;
+}
+
+.left-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}

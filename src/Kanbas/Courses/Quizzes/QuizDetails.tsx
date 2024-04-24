@@ -15,7 +15,7 @@ import * as quizzesClient from "./client";
 import { Quiz } from "./client";
 import { Link } from "react-router-dom";
 import EditDetails from "./Editor/EditDetails";
-import EditQuestions from "./Editor/EditQuestions";
+// import EditQuestions from "./Editor/EditQuestions";
 
 function QuizDetails() {
   const { courseId } = useParams();

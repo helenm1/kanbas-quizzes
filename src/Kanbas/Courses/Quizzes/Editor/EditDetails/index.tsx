@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
-import EditQuestions from "../EditQuestions";
+// import EditQuestions from "../EditQuestions";
 import { useParams } from "react-router-dom";
 import * as quizzesClient from "../../client";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import "./index.css";
 import { Quiz } from "../../client";
+import QuestionsTab from "../Editor/QuestionsTab";
 
 export default function EditDetails() {
   const { courseId, quizId } = useParams();
@@ -66,7 +67,7 @@ export default function EditDetails() {
           </Link>
           <Routes>
             <Route path="EditDetails" element={<EditDetails />} />
-            <Route path="EditQuestions" element={<EditQuestions />} />
+            <Route path="EditQuestions" element={<QuestionsTab />} />
           </Routes>
         </nav>
       </div>

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import EditDetails from "../Editor/EditDetails";
 import { useParams } from "react-router-dom";
-import EditQuestions from "../Editor/EditQuestions";
+// import EditQuestions from "../Editor/EditQuestions";
 import { KanbasState } from "../../../store";
 import * as quizzesClient from "../client";
 import { useDispatch, useSelector } from "react-redux";
