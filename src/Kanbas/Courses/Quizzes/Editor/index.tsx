@@ -2,7 +2,7 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { Routes, Route } from "react-router";
 import EditDetails from "./EditDetails";
-import EditQuestions from "./EditQuestions";
+// import EditQuestions from "./EditQuestions";
 import { QuestionType, QuizType, AssignmentGroup } from "../constants";
 import QuestionEditor from "./Editor/QuestionEditor";
 import QuestionsTab from "./Editor/QuestionsTab";

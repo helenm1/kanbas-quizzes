@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 import QuizDetails from "./Quizzes/QuizDetails";
 import Editor from "./Quizzes/Editor";
 import EditDetails from "./Quizzes/Editor/EditDetails";
-import EditQuestions from "./Quizzes/Editor/EditQuestions";
+// import EditQuestions from "./Quizzes/Editor/EditQuestions";
 import Preview from "./Quizzes/Preview";
 import QuestionsTab from "./Quizzes/Editor/Editor/QuestionsTab";
 
