@@ -9,15 +9,33 @@ import {
   updateQuiz,
   setQuiz,
   setQuizzes,
+  setPublish,
 } from "./reducer";
+// import setPublish from "./reducer";
 import { KanbasState } from "../../store";
 import * as quizzesClient from "./client";
 import { Quiz } from "./client";
 import { Link } from "react-router-dom";
 
 function QuizList() {
+  const navigate = useNavigate();
   const { courseId } = useParams();
   const validatedCourseId = courseId ? courseId : "";
+  const [contextMenu, setContextMenu] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+  const toggleContextMenu = (quizId: string) => {
+    setContextMenu((prev) => ({ ...prev, [quizId]: !prev[quizId] }));
+  };
+  const handleEditQuiz = (quizId: string) => {
+    navigate(`./${quizId}/editor/editDetails`);
+  };
+  const handleDeleteQuiz = async (quiz: any) => {
+    await quizzesClient.deleteQuiz(validatedCourseId, quiz).then(() => {
+      dispatch(deleteQuiz(quiz));
+    });
+    window.location.reload();
+  };
 
   const quizList = useSelector(
     (state: KanbasState) => state.quizzesReducer.quizzes
@@ -31,6 +49,19 @@ function QuizList() {
     const quizzes = await quizzesClient.findQuizzesForCourse(validatedCourseId);
     dispatch(setQuizzes(quizzes));
   };
+
+  function getAvailability(quiz: Quiz): string {
+    const currentDate = new Date();
+    const availableDate = new Date(quiz.availableDate);
+    const untilDate = new Date(quiz.untilDate);
+    if (currentDate < availableDate) {
+      return "Not available";
+    } else if (currentDate > untilDate) {
+      return "Closed";
+    } else {
+      return "Available";
+    }
+  }
 
   useEffect(() => {
     fetchAllQuizzes();
@@ -109,18 +140,63 @@ function QuizList() {
                         quizzesClient.publishQuiz(
                           validatedCourseId,
                           quiz,
-                          quiz._id
+                          true
                         );
                         window.location.reload();
                       }}
                     />
                   )}
-                  <FaEllipsisV className="ms-2" />
+                  <FaEllipsisV
+                    className="ms-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleContextMenu(quiz._id);
+                    }}
+                  />
+                  {contextMenu[quiz._id] && (
+                    <div className="quiz-context-menu">
+                      <button
+                        className="rounded"
+                        onClick={() => handleEditQuiz(quiz._id)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="rounded"
+                        onClick={() => handleDeleteQuiz(quiz)}
+                      >
+                        Delete
+                      </button>
+                      <button
+                        className="rounded"
+                        onClick={
+                          quiz.published
+                            ? () => {
+                                quizzesClient.unpublishQuiz(
+                                  validatedCourseId,
+                                  quiz
+                                );
+                                window.location.reload();
+                              }
+                            : () => {
+                                quizzesClient.publishQuiz(
+                                  validatedCourseId,
+                                  quiz,
+                                  true
+                                );
+                                window.location.reload();
+                              }
+                        }
+                      >
+                        {quiz.published ? "Unpublish" : "Publish"}
+                      </button>
+                    </div>
+                  )}
                 </span>
                 <p>
                   {" "}
-                  {quiz.availability} | {quiz.dueDate} | {quiz.points} |{" "}
-                  {`${quiz.questions.length} Questions`}
+                  {getAvailability(quiz)} | Due {quiz.dueDate} | {quiz.points}{" "}
+                  points | {`${quiz.questions.length} questions`}
                 </p>
               </div>
             </li>

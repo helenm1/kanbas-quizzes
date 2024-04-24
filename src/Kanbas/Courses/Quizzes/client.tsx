@@ -72,6 +72,8 @@ export const createQuiz = async (courseId: string, quiz: any) => {
 };
 
 export const deleteQuiz = async (courseId: string, quiz: Quiz) => {
+  console.log("courseId in delete", courseId);
+  console.log("quiz in delete", quiz);
   const response = await axios.delete(
     `${generateQuizzesApi(courseId)}/${quiz._id}`
   );
