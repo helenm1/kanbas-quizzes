@@ -72,6 +72,8 @@ export const createQuiz = async (courseId: string, quiz: any) => {
 };
 
 export const deleteQuiz = async (courseId: string, quiz: Quiz) => {
+  console.log("courseId in delete", courseId);
+  console.log("quiz in delete", quiz);
   const response = await axios.delete(
     `${generateQuizzesApi(courseId)}/${quiz._id}`
   );
@@ -97,5 +99,12 @@ export const publishQuiz = async (
     { isPublished }
   );
   console.log("response data from publish", response.data);
+  return response.data;
+};
+
+export const unpublishQuiz = async (courseId: string, quiz: Quiz) => {
+  const response = await axios.put(
+    `${generateQuizzesApi(courseId)}/${quiz._id}/unpublish`
+  );
   return response.data;
 };

@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  quizzes: [] as { _id: string; name: string }[],
-  quiz: { name: "New Quiz" },
+  quizzes: [] as any[],
+  quiz: { name: "New Quiz", published: false },
 };
 
 const quizzesSlice = createSlice({
@@ -35,9 +35,23 @@ const quizzesSlice = createSlice({
     setQuiz: (state, action) => {
       state.quiz = action.payload;
     },
+    setPublish: (state, action) => {
+      const quiz = state.quizzes.find(
+        (quiz) => quiz._id === action.payload.quizId
+      );
+      if (quiz) {
+        quiz.published = action.payload.published;
+      }
+    },
   },
 });
 
-export const { addQuiz, deleteQuiz, updateQuiz, setQuiz, setQuizzes } =
-  quizzesSlice.actions;
+export const {
+  addQuiz,
+  deleteQuiz,
+  updateQuiz,
+  setQuiz,
+  setQuizzes,
+  setPublish,
+} = quizzesSlice.actions;
 export default quizzesSlice.reducer;
