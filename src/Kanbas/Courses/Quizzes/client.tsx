@@ -19,6 +19,7 @@ const COURSES_API = `${API_BASE}/api/courses`;
 
 export type Question = {
   title: string;
+  // questionText: string;
   type: QuestionType;
   points: number;
   description: string;
@@ -105,6 +106,18 @@ export const publishQuiz = async (
 export const unpublishQuiz = async (courseId: string, quiz: Quiz) => {
   const response = await axios.put(
     `${generateQuizzesApi(courseId)}/${quiz._id}/unpublish`
+  );
+  return response.data;
+};
+
+export const fetchQuestionsByQuiz = async (
+  courseId: string,
+  quizId?: string
+) => {
+  // console.log("courseId in fetchquiz", courseId);
+  // console.log("quizId in fetchquiz", quizId);
+  const response = await axios.get(
+    `${generateQuizzesApi(courseId)}/${quizId}/questions`
   );
   return response.data;
 };

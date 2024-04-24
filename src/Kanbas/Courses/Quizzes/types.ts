@@ -2,6 +2,7 @@ import { QuestionType } from "./constants";
 
 export type Question = {
   title: string;
+  // questionText: string;
   type: QuestionType;
   points: number;
   description: string;
