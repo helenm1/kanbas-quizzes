@@ -11,6 +11,10 @@ import { useEffect, useState } from "react";
 import "./index.css";
 import { FaExclamationCircle } from "react-icons/fa";
 import { Question } from "../client";
+import { QuestionType } from "../constants";
+import MCQuestionAnswer from "../Editor/Editor/MCQuestionAnswer";
+import TFQuestionAnswer from "../Editor/Editor/TFQuestionAnswer";
+import FillInTheBlankQuestionAnswer from "../Editor/Editor/FillInTheBlankQuestionAnswer";
 
 export default function Preview() {
   const { courseId, quizId } = useParams();
@@ -73,6 +77,27 @@ export default function Preview() {
               <hr />
               <p>{selectedQuestion.description}</p>
               {/* Render other details of the selected question */}
+              <hr />
+              {selectedQuestion.type === QuestionType.MULTIPLE_CHOICE ? (
+                <div>hi this is an mcq</div>
+              ) : selectedQuestion.type === QuestionType.TRUE_FALSE ? (
+                <div>
+                  <div>
+                    <label>
+                      <input type="radio" name="answer" value="true" /> True
+                    </label>
+                  </div>
+                  <div>
+                    <label>
+                      <input type="radio" name="answer" value="false" /> False
+                    </label>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  Your Answer: <input type="text"></input>
+                </div>
+              )}
             </div>
           )}
         </div>
