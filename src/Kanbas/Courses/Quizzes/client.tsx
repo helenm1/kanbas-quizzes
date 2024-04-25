@@ -44,9 +44,9 @@ export type Quiz = {
   oneQuestionAtATime: boolean;
   webcamRequired: boolean;
   lockQuestionsAfterAnswering: boolean;
-  dueDate: Date;
-  availableDate: Date;
-  untilDate: Date;
+  dueDate: string;
+  availableDate: string;
+  untilDate: string;
 };
 
 const generateQuizzesApi = (courseId: string) =>

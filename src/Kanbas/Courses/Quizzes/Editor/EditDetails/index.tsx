@@ -29,7 +29,7 @@ export default function EditDetails() {
 
   const handleUpdateQuiz = async (quiz: Quiz) => {
     await quizzesClient.updateQuiz(validatedCourseId, quiz);
-    dispatch(updateQuiz(quiz));
+    Array.isArray(quiz) && dispatch(updateQuiz(quiz));
     fetchQuiz();
   };
 
@@ -302,7 +302,9 @@ export default function EditDetails() {
               value={quiz.dueDate}
               className="form-control"
               type="date"
-              onChange={(e) => setQuiz({ ...quiz, dueDate: e.target.value })}
+              onChange={(e) =>
+                dispatch(setQuiz({ ...quiz, dueDate: e.target.value }))
+              }
             />
             <br />
             <div className="d-flex">
@@ -311,11 +313,13 @@ export default function EditDetails() {
                   <strong>Available from</strong>
                 </p>
                 <input
-                  value={quiz.avaliableDate}
+                  value={quiz.availableDate}
                   className="form-control"
                   type="date"
                   onChange={(e) =>
-                    setQuiz({ ...quiz, avaliableDate: e.target.value })
+                    dispatch(
+                      setQuiz({ ...quiz, availableDate: e.target.value })
+                    )
                   }
                 />
               </div>
@@ -328,7 +332,7 @@ export default function EditDetails() {
                   className="form-control"
                   type="date"
                   onChange={(e) =>
-                    setQuiz({ ...quiz, untilDate: e.target.value })
+                    dispatch(setQuiz({ ...quiz, untilDate: e.target.value }))
                   }
                 />
               </div>
@@ -347,6 +351,8 @@ export default function EditDetails() {
           onClick={(event) => {
             event.preventDefault();
             handleUpdateQuiz(quiz);
+            quizzesClient.publishQuiz(validatedCourseId, quiz, true);
+            // window.location.reload();
             goToQuizList();
           }}
         >
