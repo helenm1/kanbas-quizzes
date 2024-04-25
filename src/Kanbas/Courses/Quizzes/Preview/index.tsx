@@ -32,6 +32,8 @@ export default function Preview() {
     dispatch(setQuiz(quiz));
   };
 
+  // const [loading, setLoading] = useState(true);
+
   // const fetchAllQuestions = async () => {
   //   const fetchedQuestions = await quizzesClient.fetchQuestionsByQuiz(
   //     validatedCourseId,
@@ -50,9 +52,14 @@ export default function Preview() {
       // const fetchedQuestions = await fetchAllQuestions();
       // setQuestions(fetchedQuestions);
       setQuestions(quiz.questions);
+      // setLoading(false);
     }
     getQuestions();
   }, [validatedCourseId]);
+
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <div>
@@ -79,7 +86,16 @@ export default function Preview() {
               {/* Render other details of the selected question */}
               <hr />
               {selectedQuestion.type === QuestionType.MULTIPLE_CHOICE ? (
-                <div>hi this is an mcq</div>
+                <div>
+                  {selectedQuestion?.options?.map((option, index) => (
+                    <div key={index}>
+                      <label>
+                        <input type="radio" name="answer" value={option} />{" "}
+                        {option}
+                      </label>
+                    </div>
+                  ))}
+                </div>
               ) : selectedQuestion.type === QuestionType.TRUE_FALSE ? (
                 <div>
                   <div>
@@ -95,7 +111,8 @@ export default function Preview() {
                 </div>
               ) : (
                 <div>
-                  Your Answer: <input type="text"></input>
+                  <div> Your Answer: </div>
+                  <input type="text"></input>
                 </div>
               )}
             </div>
