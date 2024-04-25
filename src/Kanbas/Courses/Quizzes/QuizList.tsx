@@ -111,96 +111,97 @@ function QuizList() {
       <hr />
 
       <ul className="list-group">
-        {quizList
-          .filter((quiz) => quiz.course === courseId)
-          .map((quiz) => (
-            <li className="list-group-item list-group-item-action">
-              <div>
-                <Link
-                  to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`}
-                  className="text-decoration-none"
-                  key={quiz._id}
-                >
-                  <FaRocket className="me-2 fa-rocket" />
-                  {quiz.name}
-                </Link>
-                <span className="float-end">
-                  {quiz.published ? (
-                    <FaCheckCircle
-                      className="text-success"
-                      onClick={() => {
-                        quizzesClient.unpublishQuiz(validatedCourseId, quiz);
-                        window.location.reload();
+        {Array.isArray(quizList) &&
+          quizList
+            .filter((quiz) => quiz.course === courseId)
+            .map((quiz) => (
+              <li className="list-group-item list-group-item-action">
+                <div>
+                  <Link
+                    to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`}
+                    className="text-decoration-none"
+                    key={quiz._id}
+                  >
+                    <FaRocket className="me-2 fa-rocket" />
+                    {quiz.name}
+                  </Link>
+                  <span className="float-end">
+                    {quiz.published ? (
+                      <FaCheckCircle
+                        className="text-success"
+                        onClick={() => {
+                          quizzesClient.unpublishQuiz(validatedCourseId, quiz);
+                          window.location.reload();
+                        }}
+                      />
+                    ) : (
+                      <FaBan
+                        className="text-danger"
+                        onClick={() => {
+                          quizzesClient.publishQuiz(
+                            validatedCourseId,
+                            quiz,
+                            true
+                          );
+                          window.location.reload();
+                        }}
+                      />
+                    )}
+                    <FaEllipsisV
+                      className="ms-2"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleContextMenu(quiz._id);
                       }}
                     />
-                  ) : (
-                    <FaBan
-                      className="text-danger"
-                      onClick={() => {
-                        quizzesClient.publishQuiz(
-                          validatedCourseId,
-                          quiz,
-                          true
-                        );
-                        window.location.reload();
-                      }}
-                    />
-                  )}
-                  <FaEllipsisV
-                    className="ms-2"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleContextMenu(quiz._id);
-                    }}
-                  />
-                  {contextMenu[quiz._id] && (
-                    <div className="quiz-context-menu">
-                      <button
-                        className="rounded"
-                        onClick={() => handleEditQuiz(quiz._id)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="rounded"
-                        onClick={() => handleDeleteQuiz(quiz)}
-                      >
-                        Delete
-                      </button>
-                      <button
-                        className="rounded"
-                        onClick={
-                          quiz.published
-                            ? () => {
-                                quizzesClient.unpublishQuiz(
-                                  validatedCourseId,
-                                  quiz
-                                );
-                                window.location.reload();
-                              }
-                            : () => {
-                                quizzesClient.publishQuiz(
-                                  validatedCourseId,
-                                  quiz,
-                                  true
-                                );
-                                window.location.reload();
-                              }
-                        }
-                      >
-                        {quiz.published ? "Unpublish" : "Publish"}
-                      </button>
-                    </div>
-                  )}
-                </span>
-                <p>
-                  {" "}
-                  {getAvailability(quiz)} | Due {quiz.dueDate} | {quiz.points}{" "}
-                  points | {`${quiz.questions.length} questions`}
-                </p>
-              </div>
-            </li>
-          ))}
+                    {contextMenu[quiz._id] && (
+                      <div className="quiz-context-menu">
+                        <button
+                          className="rounded"
+                          onClick={() => handleEditQuiz(quiz._id)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="rounded"
+                          onClick={() => handleDeleteQuiz(quiz)}
+                        >
+                          Delete
+                        </button>
+                        <button
+                          className="rounded"
+                          onClick={
+                            quiz.published
+                              ? () => {
+                                  quizzesClient.unpublishQuiz(
+                                    validatedCourseId,
+                                    quiz
+                                  );
+                                  window.location.reload();
+                                }
+                              : () => {
+                                  quizzesClient.publishQuiz(
+                                    validatedCourseId,
+                                    quiz,
+                                    true
+                                  );
+                                  window.location.reload();
+                                }
+                          }
+                        >
+                          {quiz.published ? "Unpublish" : "Publish"}
+                        </button>
+                      </div>
+                    )}
+                  </span>
+                  <p>
+                    {" "}
+                    {getAvailability(quiz)} | Due {quiz.dueDate} | {quiz.points}{" "}
+                    points | {`${quiz.questions.length} questions`}
+                  </p>
+                </div>
+              </li>
+            ))}
       </ul>
     </>
   );
