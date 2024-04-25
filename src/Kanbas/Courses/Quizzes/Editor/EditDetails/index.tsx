@@ -348,9 +348,9 @@ export default function EditDetails() {
         </button>
         <button
           className="btn btn-light"
-          onClick={(event) => {
+          onClick={async (event) => {
             event.preventDefault();
-            quizzesClient.publishQuiz(validatedCourseId, quiz, true);
+            await quizzesClient.publishQuiz(validatedCourseId, quiz, true);
             handleUpdateQuiz({ ...quiz, published: true });
             // window.location.reload();
             goToQuizList();

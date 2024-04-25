@@ -130,20 +130,29 @@ function QuizList() {
                       <FaCheckCircle
                         className="text-success"
                         onClick={() => {
-                          quizzesClient.unpublishQuiz(validatedCourseId, quiz);
-                          window.location.reload();
+                          const unpublish = async () => {
+                            await quizzesClient.unpublishQuiz(
+                              validatedCourseId,
+                              quiz
+                            );
+                            window.location.reload();
+                          };
+                          unpublish();
                         }}
                       />
                     ) : (
                       <FaBan
                         className="text-danger"
                         onClick={() => {
-                          quizzesClient.publishQuiz(
-                            validatedCourseId,
-                            quiz,
-                            true
-                          );
-                          window.location.reload();
+                          const publish = async () => {
+                            await quizzesClient.publishQuiz(
+                              validatedCourseId,
+                              quiz,
+                              true
+                            );
+                            window.location.reload();
+                          };
+                          publish();
                         }}
                       />
                     )}
@@ -172,15 +181,15 @@ function QuizList() {
                           className="rounded"
                           onClick={
                             quiz.published
-                              ? () => {
-                                  quizzesClient.unpublishQuiz(
+                              ? async () => {
+                                  await quizzesClient.unpublishQuiz(
                                     validatedCourseId,
                                     quiz
                                   );
                                   window.location.reload();
                                 }
-                              : () => {
-                                  quizzesClient.publishQuiz(
+                              : async () => {
+                                  await quizzesClient.publishQuiz(
                                     validatedCourseId,
                                     quiz,
                                     true

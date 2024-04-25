@@ -56,8 +56,8 @@ function QuizDetails() {
         {quiz.published ? (
           <button
             className="btn btn-success"
-            onClick={() => {
-              quizzesClient.unpublishQuiz(validatedCourseId, quiz);
+            onClick={async () => {
+              await quizzesClient.unpublishQuiz(validatedCourseId, quiz);
               window.location.reload();
             }}
           >
@@ -66,8 +66,8 @@ function QuizDetails() {
         ) : (
           <button
             className="btn btn-danger"
-            onClick={() => {
-              quizzesClient.publishQuiz(validatedCourseId, quiz, true);
+            onClick={async () => {
+              await quizzesClient.publishQuiz(validatedCourseId, quiz, true);
               window.location.reload();
             }}
           >
