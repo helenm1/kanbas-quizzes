@@ -23,13 +23,17 @@ export default function Preview() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [selectedQuestion, setSelectedQuestion] = useState<Question>();
 
-  let quiz = useSelector((state: KanbasState) => state.quizzesReducer.quiz);
+  let quiz =
+    useSelector((state: KanbasState) => state.quizzesReducer.quiz) || {};
 
   const dispatch = useDispatch();
 
   const fetchQuiz = async () => {
     const quiz = await quizzesClient.fetchQuizById(validatedCourseId, quizId);
     dispatch(setQuiz(quiz));
+    if (quiz.questions) {
+      setQuestions(quiz.questions);
+    }
   };
 
   // const [loading, setLoading] = useState(true);
@@ -51,7 +55,9 @@ export default function Preview() {
     async function getQuestions() {
       // const fetchedQuestions = await fetchAllQuestions();
       // setQuestions(fetchedQuestions);
-      setQuestions(quiz.questions);
+      if (quiz.questions) {
+        setQuestions(quiz.questions);
+      }
       // setLoading(false);
     }
     getQuestions();
