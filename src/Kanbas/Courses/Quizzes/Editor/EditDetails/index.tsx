@@ -350,8 +350,8 @@ export default function EditDetails() {
           className="btn btn-light"
           onClick={(event) => {
             event.preventDefault();
-            handleUpdateQuiz(quiz);
             quizzesClient.publishQuiz(validatedCourseId, quiz, true);
+            handleUpdateQuiz({ ...quiz, published: true });
             // window.location.reload();
             goToQuizList();
           }}
