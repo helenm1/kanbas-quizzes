@@ -102,7 +102,7 @@ function QuizDetails() {
         </p>
         <p>
           <strong>Shuffle Answers </strong>
-          {quiz.shuffleAnswers}
+          {quiz.shuffleAnswers ? "Yes" : "No"}
         </p>
         <p>
           <strong>Time Limit </strong>
@@ -114,11 +114,15 @@ function QuizDetails() {
         </p>
         <p>
           <strong>Show Correct Answers </strong>
-          {quiz.showCorrectAnswers}
+          {quiz.showCorrectAnswers ? "Yes" : "No"}
+        </p>
+        <p>
+          <strong>Access Code </strong>
+          {quiz.accessCode}
         </p>
         <p>
           <strong>One Question at a Time </strong>
-          {quiz.oneQuestionAtATime}
+          {quiz.oneQuestionAtATime ? "Yes" : "No"}
         </p>
         <p>
           <strong>Require Respondus LockDown Browser </strong>
@@ -130,11 +134,11 @@ function QuizDetails() {
         </p>
         <p>
           <strong>Webcam Required </strong>
-          {quiz.webcamRequired}
+          {quiz.webcamRequired ? "Yes" : "No"}
         </p>
         <p>
           <strong>Lock Questions After Answering </strong>
-          {quiz.lockQuestionsAfterAnswering}
+          {quiz.lockQuestionsAfterAnswering ? "Yes" : "No"}
         </p>
       </div>
     </>
